@@ -6,9 +6,9 @@ name: Docker
 # documentation.
 
 on:
-  push:
   release:
     types: ['released', 'prereleased']
+  workflow_dispatch:
 
 env:
   # Used for extracting toolchain before pushing
