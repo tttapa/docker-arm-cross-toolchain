@@ -5,7 +5,7 @@ Repository with ARM cross-compilation toolchains, built using Docker and
 
 Includes C, C++ and Fortran cross-compilers (GCC 11.2), including the
 address and undefined behavior sanitizers (Asan and UBsan), cross-GDB and
-gdbserver (11.1). Compatible with glibc 2.28 and Linux 5.8 or later.
+gdbserver (10.2). Compatible with glibc 2.28 and Linux 5.8 or later.
 These cross-compilers have been patched for [Debian Multiarch](https://wiki.debian.org/Multiarch).
 
 ## Download
