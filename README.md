@@ -44,6 +44,7 @@ Then extract it to a convenient location, e.g. `~/opt`.
 You can download and extract the toolchain in one go using `wget` and `tar`,
 for example:
 ```sh
+mkdir -p ~/opt
 wget -qO- https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu.tar.bz2 | tar xJ -C ~/opt
 ```
 
