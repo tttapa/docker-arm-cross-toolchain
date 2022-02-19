@@ -3,8 +3,8 @@ FROM ghcr.io/tttapa/docker-crosstool-ng-multiarch:master
 ARG HOST_TRIPLE
 
 WORKDIR /home/develop
-RUN mkdir /home/develop/RPi && mkdir /home/develop/src
-WORKDIR /home/develop/RPi
+RUN mkdir /home/develop/host-config && mkdir /home/develop/src
+WORKDIR /home/develop/host-config
 COPY ${HOST_TRIPLE}.config .config
 COPY ${HOST_TRIPLE}.env .env
 RUN mkdir -p patches/binutils/2.31.1 && \

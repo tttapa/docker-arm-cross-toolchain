@@ -1,0 +1,5 @@
+.config
+.config.old
+build.log
+.build
+*.bz2
