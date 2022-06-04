@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        triple: ['aarch64-rpi3-linux-gnu', 'armv6-rpi-linux-gnueabihf', 'armv8-rpi3-linux-gnueabihf']
+        triple: ['aarch64-rpi3-linux-gnu', 'armv6-rpi-linux-gnueabihf', 'armv8-rpi3-linux-gnueabihf', 'arm-pico-eabi']
 
     permissions:
       contents: write
@@ -79,12 +79,24 @@ jobs:
       # Build and load Docker image
       # https://github.com/docker/build-push-action
       - name: Build Docker image
+        if: matrix.triple != 'arm-pico-eabi'
         id: build
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: .
           build-args: |
             "HOST_TRIPLE=${{ matrix.triple }}"
+          load: true
+          tags: ${{ env.TEMPORARY_TAG }}
+
+      # Build and load Docker image
+      # https://github.com/docker/build-push-action
+      - name: Build Docker image
+        if: matrix.triple == 'arm-pico-eabi'
+        id: build-pico
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: pico
           load: true
           tags: ${{ env.TEMPORARY_TAG }}
 
@@ -116,12 +128,25 @@ jobs:
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
       - name: Push Docker image
+        if: matrix.triple != 'arm-pico-eabi'
         id: build-and-push
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: .
           build-args: |
             "HOST_TRIPLE=${{ matrix.triple }}"
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      # Build and push Docker image with Buildx (don't push on PR)
+      # https://github.com/docker/build-push-action
+      - name: Push Docker image
+        if: matrix.triple == 'arm-pico-eabi'
+        id: build-and-push-pico
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: pico
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
