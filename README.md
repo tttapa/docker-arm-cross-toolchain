@@ -1,12 +1,13 @@
 # docker-arm-cross-toolchain
 
-Repository with ARM cross-compilation toolchains, built using Docker and 
-[crosstool-NG](https://crosstool-ng.github.io/).
+Repository with ARM cross-compilation toolchains (mainly for Raspberry Pi),
+built using Docker and [crosstool-NG](https://crosstool-ng.github.io/).
 
-Includes C, C++ and Fortran cross-compilers (GCC 12.1), including the
-address and undefined behavior sanitizers (Asan and UBsan), cross-GDB and
-gdbserver (10.2). Compatible with glibc 2.28 and Linux 5.8 or later.
-These cross-compilers have been patched for [Debian Multiarch](https://wiki.debian.org/Multiarch).
+Provides C, C++ and Fortran cross-compilers (GCC 12.1).  
+The Linux compilers include the address and undefined behavior sanitizers (Asan
+and UBsan), cross-GDB and gdbserver (10.2). They are compatible with glibc 2.28
+and Linux 5.8 or later, and have been patched for [Debian Multiarch](https://wiki.debian.org/Multiarch).  
+The bare-metal compiler comes with cross-GDB (12.1), newlib and newlib-nano.
 
 ## Download
 
@@ -17,6 +18,7 @@ Direct links:
 - [**aarch64-rpi3-linux-gnu**](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu.tar.bz2) (64-bit, RPi 2B rev. 1.2, RPi 3B/3B+, CM 3, RPi 4B/400, CM 4, RPi Zero 2 W)
 - [**armv8-rpi3-linux-gnueabihf**](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv8-rpi3-linux-gnueabihf.tar.bz2) (32-bit, RPi 2B rev. 1.2, RPi 3B/3B+, CM 3, RPi 4B/400, CM 4, RPi Zero 2 W)
 - [**armv6-rpi-linux-gnueabihf**](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv6-rpi-linux-gnueabihf.tar.bz2) (32-bit, RPi A/B/A+/B+, CM 1, RPi Zero/Zero W)
+- [**arm-pico-eabi**](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-arm-pico-eabi.tar.bz2) (Cortex-M0+ RP2040, RPi Pico)
 
 For modern Raspberry Pi boards running 64-bit Raspberry Pi OS or 64-bit Ubuntu,
 use the `aarch64-rpi3-linux-gnu` toolchain.
@@ -35,6 +37,9 @@ For the RPi 4B/400 and the CM 4, use the `aarch64-rpi3-linux-gnu` or the
 `armv8-rpi3-linux-gnueabihf` toolchain, depending on whether you're using a
 64-bit or a 32-bit operating system. For optimal performance, you can include
 the `-mcpu=cortex-a72` or `-mtune=cortex-a72` flags ([GCC ARM options](https://gcc.gnu.org/onlinedocs/gcc/ARM-Options.html)).
+
+For the Raspberry Pi Pico and other RP2040-based boards, use the bare-metal 
+`arm-pico-eabi` toolchain.
 
 ## Installation
 
@@ -80,3 +85,12 @@ explicitly.
 
 For more detailed instructions on how to cross-compile software and how to 
 handle dependencies, see <https://tttapa.github.io/Pages/Raspberry-Pi/index.html>.
+
+### Pico SDK
+
+To use the `arm-pico-eabi` toolchain for the Raspberry Pi Pico with the Pico SDK,
+add the following options to the CMake configure command:
+
+```sh
+-DCMAKE_C_COMPILER=$(which pico-gcc) -DCMAKE_CXX_COMPILER=$(which pico-g++)
+```
