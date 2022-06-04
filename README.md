@@ -89,8 +89,18 @@ handle dependencies, see <https://tttapa.github.io/Pages/Raspberry-Pi/index.html
 ### Pico SDK
 
 To use the `arm-pico-eabi` toolchain for the Raspberry Pi Pico with the Pico SDK,
-add the following options to the CMake configure command:
+add the following option to the CMake configure command:
 
 ```sh
--DCMAKE_C_COMPILER=$(which pico-gcc) -DCMAKE_CXX_COMPILER=$(which pico-g++)
+-DPICO_GCC_TRIPLE=arm-pico-eabi
+```
+
+If you're using Visual Studio Code with the CMake Tools extension, you can add
+the following to `.vscode/settings.json`:
+```json
+{
+    "cmake.configureSettings": {
+        "PICO_GCC_TRIPLE": "arm-pico-eabi",
+    },
+}
 ```
