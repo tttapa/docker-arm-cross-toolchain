@@ -29,6 +29,8 @@ For modern Raspberry Pi boards running 32-bit Raspberry Pi OS, use the
 For older Raspberry Pi boards, or if you need to support all boards, use the
 `armv6-rpi-linux-gnueabihf` toolchain.
 
+See [www.raspberrypi.com/documentation/computers/processors.html](https://www.raspberrypi.com/documentation/computers/processors.html) for an overview of the processors used by different Raspberry Pi models.
+
 There is no specific toolchain for the first version of the RPi 2B (which 
 uses a quad-core ARMv7 Cortex-A7), but the `armv6-rpi-linux-gnueabihf` toolchain
 is compatible with this architecture as well.
