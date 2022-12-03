@@ -15,10 +15,10 @@ Docker images are available from [GitHub Packages](https://github.com/tttapa/doc
 and the ready-to-use toolchains can be downloaded from the [Releases page](https://github.com/tttapa/docker-arm-cross-toolchain/releases).
 
 Direct links: 
-- [**aarch64-rpi3-linux-gnu**](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu.tar.bz2) (64-bit, RPi 2B rev. 1.2, RPi 3B/3B+, CM 3, RPi 4B/400, CM 4, RPi Zero 2 W)
-- [**armv8-rpi3-linux-gnueabihf**](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv8-rpi3-linux-gnueabihf.tar.bz2) (32-bit, RPi 2B rev. 1.2, RPi 3B/3B+, CM 3, RPi 4B/400, CM 4, RPi Zero 2 W)
-- [**armv6-rpi-linux-gnueabihf**](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv6-rpi-linux-gnueabihf.tar.bz2) (32-bit, RPi A/B/A+/B+, CM 1, RPi Zero/Zero W)
-- [**arm-pico-eabi**](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-arm-pico-eabi.tar.bz2) (Cortex-M0+ RP2040, RPi Pico)
+- [**aarch64-rpi3-linux-gnu**](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu.tar.xz) (64-bit, RPi 2B rev. 1.2, RPi 3B/3B+, CM 3, RPi 4B/400, CM 4, RPi Zero 2 W)
+- [**armv8-rpi3-linux-gnueabihf**](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv8-rpi3-linux-gnueabihf.tar.xz) (32-bit, RPi 2B rev. 1.2, RPi 3B/3B+, CM 3, RPi 4B/400, CM 4, RPi Zero 2 W)
+- [**armv6-rpi-linux-gnueabihf**](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv6-rpi-linux-gnueabihf.tar.xz) (32-bit, RPi A/B/A+/B+, CM 1, RPi Zero/Zero W)
+- [**arm-pico-eabi**](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-arm-pico-eabi.tar.xz) (Cortex-M0+ RP2040, RPi Pico)
 
 For modern Raspberry Pi boards running 64-bit Raspberry Pi OS or 64-bit Ubuntu,
 use the `aarch64-rpi3-linux-gnu` toolchain.
@@ -52,7 +52,7 @@ You can download and extract the toolchain in one go using `wget` and `tar`,
 for example:
 ```sh
 mkdir -p ~/opt
-wget -qO- https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu.tar.bz2 | tar xJ -C ~/opt
+wget -qO- https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu.tar.xz | tar xJ -C ~/opt
 ```
 
 If you want to use the toolchain directly, you can add the

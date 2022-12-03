@@ -103,27 +103,27 @@ jobs:
       - name: Export toolchain
         run: |
           container=$(docker run -d ${{ env.TEMPORARY_TAG }} \
-              bash -c "tar cJf x-tools.tar.bz2 x-tools")
+              bash -c "tar cJf x-tools.tar.xz x-tools")
           status=$(docker wait $container)
           if [ $status -ne 0 ]; then
               echo "Error creating toolchain archives"
               exit 1
           fi
           echo "Copying toolchain from Docker container to host"
-          docker cp $container:/home/develop/x-tools.tar.bz2 x-tools-${{ matrix.triple }}.tar.bz2
+          docker cp $container:/home/develop/x-tools.tar.xz x-tools-${{ matrix.triple }}.tar.xz
           docker rm $container
 
       - name: Upload toolchain
         uses: actions/upload-artifact@v2
         with:
           name: x-tools-${{ matrix.triple }}
-          path: x-tools-${{ matrix.triple }}.tar.bz2
+          path: x-tools-${{ matrix.triple }}.tar.xz
 
       - name: Release toolchain
         if: ${{ github.event.action == 'released' || github.event.action == 'prereleased' }}
         uses: softprops/action-gh-release@17cd0d34deddf848fc0e7d9be5202c148c270a0a
         with:
-          files: x-tools-${{ matrix.triple }}.tar.bz2
+          files: x-tools-${{ matrix.triple }}.tar.xz
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action

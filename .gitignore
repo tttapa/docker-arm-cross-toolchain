@@ -3,3 +3,4 @@
 build.log
 .build
 *.bz2
+*.xz
