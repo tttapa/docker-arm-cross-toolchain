@@ -5,12 +5,11 @@ ARG HOST_TRIPLE
 WORKDIR /home/develop
 RUN mkdir /home/develop/host-config && mkdir /home/develop/src
 WORKDIR /home/develop/host-config
-COPY ${HOST_TRIPLE}.config .config
+COPY ${HOST_TRIPLE}.defconfig defconfig
 COPY ${HOST_TRIPLE}.env .env
-RUN mkdir -p patches/binutils/2.31.1 && \
-    cp /home/develop/129_multiarch_libpath.patch patches/binutils/2.31.1
 RUN ls -lah
 
+RUN ct-ng defconfig
 # https://www.raspberrypi.org/forums/viewtopic.php?f=91&t=280707&p=1700861#p1700861
 RUN . ./.env; export DEB_TARGET_MULTIARCH="${HOST_TRIPLE_LIB_DIR}"; \
     V=1 ct-ng build || { cat build.log && false; } && rm -rf .build
