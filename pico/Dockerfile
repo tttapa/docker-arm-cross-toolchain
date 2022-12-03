@@ -1,8 +1,7 @@
 FROM ghcr.io/tttapa/docker-crosstool-ng-multiarch:master
 
 WORKDIR /home/develop
-RUN mkdir /home/develop/host-config && mkdir /home/develop/src
-WORKDIR /home/develop/host-config
+RUN mkdir /home/develop/src
 COPY arm-pico-eabi.defconfig defconfig
 
 RUN ct-ng defconfig
