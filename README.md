@@ -3,11 +3,11 @@
 Repository with ARM cross-compilation toolchains (mainly for Raspberry Pi),
 built using Docker and [crosstool-NG](https://crosstool-ng.github.io/).
 
-Provides C, C++ and Fortran cross-compilers (GCC 12.2).  
+Provides C, C++ and Fortran cross-compilers (GCC 13.1).  
 The Linux compilers include the address and undefined behavior sanitizers (Asan
-and UBsan), cross-GDB and gdbserver (10.2). They are compatible with glibc 2.27
+and UBsan) and gdbserver (13.1). They are compatible with glibc 2.27
 and Linux 4.19 or later, and have been patched for [Debian Multiarch](https://wiki.debian.org/Multiarch).  
-The bare-metal compiler comes with cross-GDB (12.1), newlib and newlib-nano.
+The bare-metal compiler ships with newlib and newlib-nano.
 
 ## Download
 
