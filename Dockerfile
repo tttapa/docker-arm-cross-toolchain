@@ -13,6 +13,11 @@ RUN ct-ng defconfig
 RUN . ./.env; export DEB_TARGET_MULTIARCH="${HOST_TRIPLE_LIB_DIR}"; \
     V=1 ct-ng build || { cat build.log && false; } && rm -rf .build
 
+RUN chmod +w /home/develop/x-tools/${HOST_TRIPLE}
+COPY cmake/Common.toolchain.cmake /home/develop/x-tools/${HOST_TRIPLE}/
+COPY cmake/${HOST_TRIPLE}/* /home/develop/x-tools/${HOST_TRIPLE}/
+RUN chmod -w /home/develop/x-tools/${HOST_TRIPLE}
+
 ENV TOOLCHAIN_PATH=/home/develop/x-tools/${HOST_TRIPLE}
 ENV PATH=${TOOLCHAIN_PATH}/bin:$PATH
 WORKDIR /home/develop
