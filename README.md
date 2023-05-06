@@ -21,11 +21,9 @@ Direct links:
 - [**arm-pico-eabi**](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-arm-pico-eabi.tar.xz) (Cortex-M0+ RP2040, RPi Pico)
 
 For modern Raspberry Pi boards running 64-bit Raspberry Pi OS or 64-bit Ubuntu,
-use the `aarch64-rpi3-linux-gnu` toolchain.
-
+use the `aarch64-rpi3-linux-gnu` toolchain.  
 For modern Raspberry Pi boards running 32-bit Raspberry Pi OS, use the 
-`armv8-rpi3-linux-gnueabihf` toolchain.
-
+`armv8-rpi3-linux-gnueabihf` toolchain.  
 For older Raspberry Pi boards, or if you need to support all boards, use the
 `armv6-rpi-linux-gnueabihf` toolchain.
 
@@ -52,7 +50,7 @@ You can download and extract the toolchain in one go using `wget` and `tar`,
 for example:
 ```sh
 mkdir -p ~/opt
-wget -qO- https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu.tar.xz | tar xJ -C ~/opt
+wget -O- https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu.tar.xz | tar xJ -C ~/opt
 ```
 
 If you want to use the toolchain directly, you can add the
@@ -65,6 +63,11 @@ export PATH="$HOME/opt/x-tools/aarch64-rpi3-linux-gnu/bin:$PATH"
 To make it permanent, you can add it to your `~/.profile`:
 ```sh
 echo 'export PATH="$HOME/opt/x-tools/aarch64-rpi3-linux-gnu/bin:$PATH"' >> ~/.profile
+```
+To verify that the toolchain was successfully added to the path, try querying
+the GCC version:
+```sh
+aarch64-rpi3-linux-gnu-gcc --version
 ```
 
 ## Usage
@@ -91,18 +94,40 @@ handle dependencies, see <https://tttapa.github.io/Pages/Raspberry-Pi/index.html
 ### Pico SDK
 
 To use the `arm-pico-eabi` toolchain for the Raspberry Pi Pico with the Pico SDK,
-add the following option to the CMake configure command:
+set the `PICO_GCC_TRIPLE` environment variable when invoking the CMake configure
+command.
+In case you didn't add the toolchain to the path, set the `PICO_TOOLCHAIN_PATH`
+environment variable as well.
+
 
 ```sh
--DPICO_GCC_TRIPLE=arm-pico-eabi
+export PICO_GCC_TRIPLE="arm-pico-eabi"
+export PICO_TOOLCHAIN_PATH="$HOME/opt/x-tools/arm-pico-eabi/bin"
+cmake -S. -Bbuild # ...
+cmake --build build # ...
 ```
 
 If you're using Visual Studio Code with the CMake Tools extension, you can add
 the following to `.vscode/settings.json`:
 ```json
 {
-    "cmake.configureSettings": {
+    "cmake.configureEnvironment": {
         "PICO_GCC_TRIPLE": "arm-pico-eabi",
     },
 }
 ```
+
+Alternatively, create a file `.vscode/cmake-kits.json` with the following contents:
+```json
+[
+    {
+        "name": "RPi Pico",
+        "environmentVariables": {
+            "PICO_SDK_PATH": "${env:HOME}/pico/pico-sdk",
+            "PICO_GCC_TRIPLE": "arm-pico-eabi",
+            "PICO_TOOLCHAIN_PATH": "${env:HOME}/opt/x-tools/arm-pico-eabi/bin"
+        }
+    }
+]
+```
+Then select this toolchain using <kbd>Ctrl+Shift+P</kbd>, `CMake: Select a Kit`.
