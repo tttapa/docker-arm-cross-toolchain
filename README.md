@@ -72,24 +72,91 @@ aarch64-rpi3-linux-gnu-gcc --version
 
 ## Usage
 
-For new software configured using CMake, use a [CMake toolchain file](https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html).
-Examples can be found in <https://github.com/tttapa/RPi-Cross-Cpp-Development/tree/master/cmake>.
+### CMake
+
+For new software configured using CMake, simply specify the appropriate
+toolchain file. Several toolchain files are included with the toolchain, and you
+can wrap them in a custom toolchain file if you need finer control.
+See the [`cmake`](./cmake/) directory for an overview of available toolchain
+files.
+
+For example:
+```sh
+cd my-cmake-project # Open the directory of your CMake project
+triple=aarch64-rpi3-linux-gnu # Select the main toolchain
+variant_triple=aarch64-rpi4-linux-gnu # Select a specific variant
+# Configure
+cmake -S . -B build-$variant_triple --toolchain ~/opt/x-tools/$triple/$variant_triple.toolchain.cmake
+# Build
+cmake --build build-$variant_triple
+```
+
+On older versions of CMake, you might have to use `-DCMAKE_TOOLCHAIN_FILE="$HOME/opt/x-tools/$triple/$variant_triple.toolchain.cmake"` instead of `--toolchain ~/opt/x-tools/$triple/$variant_triple.toolchain.cmake`.
 
 I _highly_ recommend using CMake for your own projects as well, this makes it
-much easier for other people to depend on, package, and cross-compile your 
-software.
+much easier for other people to depend on, package, and cross-compile your
+software.  
+See [Mastering CMake: Cross Compiling with CMake](https://cmake.org/cmake/help/book/mastering-cmake/chapter/Cross%20Compiling%20With%20CMake.html)
+and the [`cmake-toolchains(7)` manpage](https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html) for more details about CMake toolchain files.
 
-For legacy software configured using Autotools, you usuall have to set a flag
-`--host="aarch64-rpi3-linux-gnu"` when invoking the `configure` script.  
+For more detailed instructions on how to cross-compile software and how to 
+handle dependencies, see <https://tttapa.github.io/Pages/Raspberry-Pi/index.html>.
+
+#### VSCode CMake Tools Extension
+
+To pass the `--toolchain` option to CMake when using the [CMake Tools extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools),
+add the paths to the different toolchain files to a “kits” file, either globally
+(<kbd>Ctrl+Shift+P</kbd>, `Edit User-Local CMake Kits`) or for the specific
+project (in `.vscode/cmake-kits.json`). 
+Then select this toolchain using <kbd>Ctrl+Shift+P</kbd>, `CMake: Select a Kit`.
+
+For example, `cmake-kits.json` could contain:
+```json
+[
+    {
+        "name": "Raspberry Pi 4 (64-bit, GCC)",
+        "toolchainFile": "${env:HOME}/opt/x-tools/aarch64-rpi3-linux-gnu/aarch64-rpi4-linux-gnu.toolchain.cmake"
+    }
+]
+
+```
+A full kits file with all toolchains is included: [`cmake/cmake-kits.json`](./cmake/cmake-kits.json).
+
+See [the CMake Tools documentation](https://github.com/microsoft/vscode-cmake-tools/blob/main/docs/kits.md#specify-a-toolchain)
+for more details.
+
+### Manual compiler invocation
+
+To invoke a compiler or other tools manually, simply add the `bin` folder of
+the toolchain to your path, as explained [above](#installation).
+
+Then invoke the compiler you need, for example:
+```sh
+cat > hello.c << EOF
+#include <stdio.h>
+int main(void) { puts("Hello, world!"); }
+EOF
+aarch64-rpi3-linux-gnu-gcc hello.c -o hello
+aarch64-rpi3-linux-gnu-readelf -A hello
+```
+
+Note that the compilers have been configured to use the most compatible target
+by default (e.g. the Raspberry Pi 3 for `aarch64-rpi3-linux-gnu`), so you might
+have to specify additional flags to select the one that fits your needs (e.g.
+`-mcpu=cortex-a72+crc+simd` for the Raspberry Pi 4). See the flags used in the
+CMake toolchain files in [`cmake`](./cmake/) for inspiration.
+
+### Autotools, Make and other legacy build tools
+
+For legacy software configured using Autotools, you usually have to pass the
+`--host` flag (e.g. `--host="aarch64-rpi3-linux-gnu"`) to the `configure`
+script.  
 Packages with custom configuration scripts might have differently named options,
 for example, OpenSSL has `--cross-compile-prefix="aarch64-rpi3-linux-gnu-"`.  
 Custom Makefiles might require you to set a variable such as
 `CROSS=aarch64-rpi3-linux-gnu-` or `CROSS_COMPILE=aarch64-rpi3-linux-gnu-`.   
 If all else fails, try setting the `CC`, `CXX` or `FC` environment variables
 explicitly.
-
-For more detailed instructions on how to cross-compile software and how to 
-handle dependencies, see <https://tttapa.github.io/Pages/Raspberry-Pi/index.html>.
 
 ### Pico SDK
 
@@ -99,11 +166,10 @@ command.
 In case you didn't add the toolchain to the path, set the `PICO_TOOLCHAIN_PATH`
 environment variable as well.
 
-
 ```sh
 export PICO_GCC_TRIPLE="arm-pico-eabi"
 export PICO_TOOLCHAIN_PATH="$HOME/opt/x-tools/arm-pico-eabi/bin"
-cmake -S. -Bbuild # ...
+cmake -S . -B build # ...
 cmake --build build # ...
 ```
 
