@@ -1,9 +1,10 @@
 # docker-arm-cross-toolchain
 
 Repository with ARM cross-compilation toolchains (mainly for Raspberry Pi),
-built using Docker and [crosstool-NG](https://crosstool-ng.github.io/).
+available as [stand-alone tarballs](https://github.com/tttapa/docker-arm-cross-toolchain/releases)
+or [Docker containers](https://github.com/tttapa/docker-arm-cross-toolchain/pkgs/container/docker-arm-cross-toolchain).
 
-Provides C, C++ and Fortran cross-compilers (GCC 13.1).  
+Provides C, C++ and Fortran cross-compilers (GCC 13.1), built using [crosstool-NG](https://crosstool-ng.github.io/).  
 The Linux compilers include the address and undefined behavior sanitizers (Asan
 and UBsan) and gdbserver (13.1). They are compatible with glibc 2.27
 and Linux 4.19 or later, and have been patched for [Debian Multiarch](https://wiki.debian.org/Multiarch).  
@@ -11,8 +12,7 @@ The bare-metal compiler ships with newlib and newlib-nano.
 
 ## Download
 
-Docker images are available from [GitHub Packages](https://github.com/tttapa/docker-arm-cross-toolchain/pkgs/container/docker-arm-cross-toolchain),
-and the ready-to-use toolchains can be downloaded from the [Releases page](https://github.com/tttapa/docker-arm-cross-toolchain/releases).
+The ready-to-use toolchain tarballs can be downloaded from the [Releases page](https://github.com/tttapa/docker-arm-cross-toolchain/releases) (no Docker required).
 
 Direct links: 
 - [**aarch64-rpi3-linux-gnu**](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu.tar.xz) (64-bit, RPi 2B rev. 1.2, RPi 3B/3B+, CM 3, RPi 4B/400, CM 4, RPi Zero 2 W)
