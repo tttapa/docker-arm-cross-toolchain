@@ -18,8 +18,6 @@ endif()
 
 # Clang toolchain
 option(TOOLCHAIN_USE_CLANG "Use Clang instead of GCC" Off)
-cmake_dependent_option(TOOLCHAIN_USE_FLANG "Use LLVM Flang instead of GFortran"
-    Off "TOOLCHAIN_USE_CLANG" Off)
 if (TOOLCHAIN_USE_CLANG)
     # Select the GCC toolchain to use
     set(TOOLCHAIN_C_COMPILER ${TOOLCHAIN_DIR}/bin/${CROSS_GNU_TRIPLE}-gcc)
@@ -31,13 +29,8 @@ if (TOOLCHAIN_USE_CLANG)
         CACHE FILEPATH "Full name or path of the clang command")
     set(TOOLCHAIN_CXX_COMPILER_CLANG ${TOOLCHAIN_CLANG_PREFIX}clang++${TOOLCHAIN_CLANG_SUFFIX}
         CACHE FILEPATH "Full name or path of the clang++ command")
-    if (TOOLCHAIN_USE_FLANG)
-        set(TOOLCHAIN_Fortran_COMPILER_CLANG ${TOOLCHAIN_CLANG_PREFIX}flang-new${TOOLCHAIN_CLANG_SUFFIX}
-            CACHE FILEPATH "Full name or path of the flang command")
-    else()
-        set(TOOLCHAIN_Fortran_COMPILER_CLANG "${TOOLCHAIN_DIR}/bin/${CROSS_GNU_TRIPLE}-gfortran"
-            CACHE FILEPATH "Full name or path of the gfortran command")
-    endif()
+    set(TOOLCHAIN_Fortran_COMPILER_CLANG "${TOOLCHAIN_DIR}/bin/${CROSS_GNU_TRIPLE}-gfortran"
+        CACHE FILEPATH "Full name or path of the gfortran command")
     # Use Clang as the cross-compiler
     set(CMAKE_C_COMPILER ${TOOLCHAIN_C_COMPILER_CLANG}
         CACHE FILEPATH "C compiler")
@@ -45,14 +38,6 @@ if (TOOLCHAIN_USE_CLANG)
         CACHE FILEPATH "C++ compiler")
     set(CMAKE_Fortran_COMPILER ${TOOLCHAIN_Fortran_COMPILER_CLANG}
         CACHE FILEPATH "Fortran compiler")
-    # Use Clang for linking Fortran code if GFortran is used as compiler
-    if (NOT TOOLCHAIN_USE_FLANG)
-        set(CMAKE_Fortran_CREATE_SHARED_LIBRARY "<CMAKE_C_COMPILER> <CMAKE_SHARED_LIBRARY_Fortran_FLAGS> <LANGUAGE_COMPILE_FLAGS> <LINK_FLAGS> <CMAKE_SHARED_LIBRARY_CREATE_Fortran_FLAGS> <SONAME_FLAG><TARGET_SONAME> -o <TARGET> <OBJECTS> <LINK_LIBRARIES>" CACHE STRING "")
-        set(CMAKE_Fortran_LINK_EXECUTABLE "<CMAKE_C_COMPILER> <CMAKE_Fortran_LINK_FLAGS> <LINK_FLAGS> <FLAGS> <OBJECTS> -o <TARGET> <LINK_LIBRARIES>" CACHE STRING "")
-        set(CMAKE_Fortran_CREATE_SHARED_MODULE ${CMAKE_Fortran_CREATE_SHARED_LIBRARY} CACHE STRING "")
-        set(CMAKE_Fortran_STANDARD_LIBRARIES_INIT -lgfortran)
-        set(CMAKE_Fortran_COMPILER_FORCED On)
-    endif()
 
     # Get the machine triple from GCC
     execute_process(COMMAND ${TOOLCHAIN_C_COMPILER} -dumpmachine
@@ -91,23 +76,19 @@ if (TOOLCHAIN_USE_CLANG)
     # Make sure that Clang finds the GCC installation and a suitable linker
     set(TOOLCHAIN_FLAGS "--gcc-toolchain=${TOOLCHAIN_GCC_INSTALL}")
     set(TOOLCHAIN_LINK_FLAGS "-L${TOOLCHAIN_GCC_INSTALL_LIB} -fuse-ld=${TOOLCHAIN_LINKER}")
-    # Runtime libraries for Flang
-    if (TOOLCHAIN_USE_FLANG)
-        set(FLANG_LIB_DIR "${CMAKE_CURRENT_LIST_DIR}/../flang-main/usr/local/lib"
-            CACHE PATH "Path to the Flang runtime libraries")
-        string(APPEND TOOLCHAIN_LINK_FLAGS " -L${FLANG_LIB_DIR}")
-    endif()
     # Compilation flags
     string(APPEND CMAKE_C_FLAGS_INIT " ${ARCH_FLAGS} ${TOOLCHAIN_FLAGS}")
     string(APPEND CMAKE_CXX_FLAGS_INIT " ${ARCH_FLAGS} ${TOOLCHAIN_FLAGS}")
-    if (TOOLCHAIN_USE_FLANG)
-        string(APPEND CMAKE_Fortran_FLAGS_INIT " ${ARCH_FLAGS} ${TOOLCHAIN_FLAGS}")
-        string(APPEND CMAKE_Fortran_FLAGS_INIT " --sysroot=${CMAKE_SYSROOT}")
-    endif()
     # Linker flags
     string(APPEND CMAKE_EXE_LINKER_FLAGS_INIT " ${TOOLCHAIN_LINK_FLAGS}")
     string(APPEND CMAKE_MODULE_LINKER_FLAGS_INIT " ${TOOLCHAIN_LINK_FLAGS}")
     string(APPEND CMAKE_SHARED_LINKER_FLAGS_INIT " ${TOOLCHAIN_LINK_FLAGS}")
+    # Use Clang for linking Fortran code (GFortran is used as compiler)
+    set(CMAKE_Fortran_CREATE_SHARED_LIBRARY "<CMAKE_C_COMPILER> ${ARCH_FLAGS} ${TOOLCHAIN_FLAGS} ${TOOLCHAIN_LINK_FLAGS} <CMAKE_SHARED_LIBRARY_Fortran_FLAGS> <LANGUAGE_COMPILE_FLAGS> <LINK_FLAGS> <CMAKE_SHARED_LIBRARY_CREATE_Fortran_FLAGS> <SONAME_FLAG><TARGET_SONAME> -o <TARGET> <OBJECTS> <LINK_LIBRARIES>" CACHE STRING "")
+    set(CMAKE_Fortran_LINK_EXECUTABLE "<CMAKE_C_COMPILER> ${ARCH_FLAGS} ${TOOLCHAIN_FLAGS} ${TOOLCHAIN_LINK_FLAGS} <CMAKE_Fortran_LINK_FLAGS> <LINK_FLAGS> <FLAGS> <OBJECTS> -o <TARGET> <LINK_LIBRARIES>" CACHE STRING "")
+    set(CMAKE_Fortran_CREATE_SHARED_MODULE ${CMAKE_Fortran_CREATE_SHARED_LIBRARY} CACHE STRING "")
+    set(CMAKE_Fortran_STANDARD_LIBRARIES_INIT -lgfortran)
+    set(CMAKE_Fortran_COMPILER_FORCED On)
 # GCC toolchain
 else()
     set(CMAKE_C_COMPILER "${TOOLCHAIN_DIR}/bin/${CROSS_GNU_TRIPLE}-gcc"
