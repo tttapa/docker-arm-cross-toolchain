@@ -137,7 +137,7 @@ cat > hello.c << EOF
 int main(void) { puts("Hello, world!"); }
 EOF
 aarch64-rpi3-linux-gnu-gcc hello.c -o hello
-aarch64-rpi3-linux-gnu-readelf -A hello
+aarch64-rpi3-linux-gnu-readelf -h hello
 ```
 
 Note that the compilers have been configured to use the most compatible target
