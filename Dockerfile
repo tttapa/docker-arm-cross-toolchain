@@ -78,8 +78,8 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update -y && \
     apt-get install --no-install-recommends -y \
         ninja-build cmake make bison flex \
-        tar xz-utils gzip zip unzip bzip2 \
-        ca-certificates wget git && \
+        tar xz-utils gzip zip unzip bzip2 zstd \
+        ca-certificates wget git sudo && \
     apt-get clean autoclean && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
