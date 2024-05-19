@@ -18,6 +18,8 @@ endif()
 
 # Clang toolchain
 option(TOOLCHAIN_USE_CLANG "Use Clang instead of GCC" Off)
+# Inform CMake about this option (for try_compile and compiler detection etc.)
+list(APPEND CMAKE_TRY_COMPILE_PLATFORM_VARIABLES TOOLCHAIN_USE_CLANG)
 if (TOOLCHAIN_USE_CLANG)
     # Select the GCC toolchain to use
     set(TOOLCHAIN_C_COMPILER ${TOOLCHAIN_DIR}/bin/${CROSS_GNU_TRIPLE}-gcc)
