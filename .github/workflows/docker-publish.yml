@@ -104,6 +104,20 @@ jobs:
           name: x-tools-${{ matrix.triple }}-gcc${{ matrix.gcc-version }}
           path: x-tools-${{ matrix.triple }}-gcc${{ matrix.gcc-version }}.tar.xz
 
+      - name: Extract toolchain
+        run: tar xf x-tools-${{ matrix.triple }}-gcc${{ matrix.gcc-version }}.tar.xz
+      - name: Install pico-sdk
+        if: ${{ matrix.triple == 'arm-pico-eabi' }}
+        run: |
+          git clone --single-branch --depth=1 --shallow-submodules https://github.com/raspberrypi/pico-sdk.git
+          echo "PICO_SDK_PATH=$PWD/pico-sdk" >> "$GITHUB_ENV"
+      - name: Configure test project
+        run: cmake -B build -S . --toolchain ../x-tools/${{ matrix.triple }}/${{ matrix.triple }}.toolchain.cmake
+        working-directory: test
+      - name: Build test project
+        run: cmake --build build -j
+        working-directory: test
+
       - name: Release toolchain
         if: ${{ github.event.action == 'released' || github.event.action == 'prereleased' }}
         uses: softprops/action-gh-release@17cd0d34deddf848fc0e7d9be5202c148c270a0a
