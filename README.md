@@ -4,21 +4,33 @@ Repository with ARM cross-compilation toolchains (mainly for Raspberry Pi),
 available as [stand-alone tarballs](https://github.com/tttapa/docker-arm-cross-toolchain/releases)
 or [Docker containers](https://github.com/tttapa/docker-arm-cross-toolchain/pkgs/container/docker-arm-cross-toolchain).
 
-Provides C, C++ and Fortran cross-compilers (GCC 13.2), built using [crosstool-NG](https://crosstool-ng.github.io/).  
+- **GCC**: 14.1, 13.2, 12.3
+- **Languages**: C, C++, Fortran
+- **Glibc**: 2.27 and later
+- **Linux**: 4.15 and later
+- **Distributions**: Ubuntu 18.04 Bionic, Raspberry Pi OS 10 Buster, Rocky 8 and later
+
+The toolchains are built using [crosstool-NG](https://crosstool-ng.github.io/).  
 The Linux compilers include the address and undefined behavior sanitizers (Asan
-and UBsan) and gdbserver (13.2). They are compatible with glibc 2.27
-and Linux 4.19 or later, and have been patched for [Debian Multiarch](https://wiki.debian.org/Multiarch).  
-The bare-metal compiler ships with newlib and newlib-nano 4.3.
+and UBsan) and gdbserver (14.2). They are compatible with glibc 2.27
+and Linux 4.15 or later, and have been patched for [Debian Multiarch](https://wiki.debian.org/Multiarch).  
+The bare-metal compiler ships with newlib 4.4 and newlib-nano 4.3.
+
+The toolchains themselves can be used on any x86-64 system running CentOS 7 or
+later.
 
 ## Download
 
-The ready-to-use toolchain tarballs can be downloaded from the [Releases page](https://github.com/tttapa/docker-arm-cross-toolchain/releases) (no Docker required).
+The ready-to-use toolchain tarballs can be downloaded from the [Releases page](https://github.com/tttapa/docker-arm-cross-toolchain/releases) (no Docker required).  
+Direct links are available in the table below: 
 
-Direct links: 
-- [**aarch64-rpi3-linux-gnu**](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu.tar.xz) (64-bit, RPi 2B rev. 1.2, RPi 3B/3B+, CM 3, RPi 4B/400, CM 4, RPi Zero 2 W)
-- [**armv8-rpi3-linux-gnueabihf**](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv8-rpi3-linux-gnueabihf.tar.xz) (32-bit, RPi 2B rev. 1.2, RPi 3B/3B+, CM 3, RPi 4B/400, CM 4, RPi Zero 2 W)
-- [**armv6-rpi-linux-gnueabihf**](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv6-rpi-linux-gnueabihf.tar.xz) (32-bit, RPi A/B/A+/B+, CM 1, RPi Zero/Zero W)
-- [**arm-pico-eabi**](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-arm-pico-eabi.tar.xz) (Cortex-M0+ RP2040, RPi Pico)
+
+| Target triplet | GCC 14.1 | GCC 13.2 | GCC 12.3 | Supported hardware | Supported distributions |
+|---------------:|:--------:|:--------:|:--------:|:-------------------|:------------------------|
+| `aarch64-rpi3-linux-gnu` | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-gcc14.tar.xz) | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-gcc13.tar.xz) | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-gcc12.tar.xz) | 64-bit ARMv8 (RPi 2B rev. 1.2, RPi 3B/3B+, CM 3, RPi 4B/400, CM 4, RPi Zero 2 W, RPi 5) | Ubuntu 18.04 Bionic, Debian 10 Buster, Rocky 8 and later |
+| `armv8-rpi3-linux-gnueabihf` | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv8-rpi3-linux-gnueabihf-gcc14.tar.xz) | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv8-rpi3-linux-gnueabihf-gcc13.tar.xz) | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv8-rpi3-linux-gnueabihf-gcc12.tar.xz) | 32-bit ARMv8 (RPi 2B rev. 1.2, RPi 3B/3B+, CM 3, RPi 4B/400, CM 4, RPi Zero 2 W, RPi 5) | Ubuntu 18.04 Bionic, Debian 10 Buster and later |
+| `armv6-rpi-linux-gnueabihf` | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv6-rpi-linux-gnueabihf-gcc14.tar.xz) | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv6-rpi-linux-gnueabihf-gcc13.tar.xz) | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv6-rpi-linux-gnueabihf-gcc12.tar.xz) | 32-bit ARMv6 (RPi A/B/A+/B+, CM 1, RPi Zero/Zero W) | Raspberry Pi OS 10 Buster and later |
+| `arm-pico-eabi` | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-arm-pico-eabi-gcc14.tar.xz) | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-arm-pico-eabi-gcc13.tar.xz) | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-arm-pico-eabi-gcc12.tar.xz) | 32-bit ARM Cortex-M0+ (RP2040, RPi Pico, RPi Pico W) | - |
 
 For modern Raspberry Pi boards running 64-bit Raspberry Pi OS or 64-bit Ubuntu,
 use the `aarch64-rpi3-linux-gnu` toolchain.  
@@ -33,10 +45,10 @@ There is no specific toolchain for the first version of the RPi 2B (which
 uses a quad-core ARMv7 Cortex-A7), but the `armv6-rpi-linux-gnueabihf` toolchain
 is compatible with this architecture as well.
 
-For the RPi 4B/400 and the CM 4, use the `aarch64-rpi3-linux-gnu` or the 
+For the RPi 5, RPi 4B/400 and the CM 4, use the `aarch64-rpi3-linux-gnu` or the 
 `armv8-rpi3-linux-gnueabihf` toolchain, depending on whether you're using a
 64-bit or a 32-bit operating system. For optimal performance, you can include
-the `-mcpu=cortex-a72` or `-mtune=cortex-a72` flags ([GCC ARM options](https://gcc.gnu.org/onlinedocs/gcc/ARM-Options.html)).
+the `-mcpu=cortex-a76+crypto` (RPi 5) or `-mcpu=cortex-a72` (RPi 4) flag ([GCC ARM options](https://gcc.gnu.org/onlinedocs/gcc/ARM-Options.html)).
 
 For the Raspberry Pi Pico and other RP2040-based boards, use the bare-metal 
 `arm-pico-eabi` toolchain.
@@ -50,7 +62,7 @@ You can download and extract the toolchain in one go using `wget` and `tar`,
 for example:
 ```sh
 mkdir -p ~/opt
-wget -O- https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu.tar.xz | tar xJ -C ~/opt
+wget https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-gcc14.tar.xz -O- | tar xJ -C ~/opt
 ```
 
 If you want to use the toolchain directly, you can add the
@@ -88,7 +100,7 @@ variant_triple=aarch64-rpi4-linux-gnu # Select a specific variant
 # Configure
 cmake -S . -B build-$variant_triple --toolchain ~/opt/x-tools/$triple/$variant_triple.toolchain.cmake
 # Build
-cmake --build build-$variant_triple
+cmake --build build-$variant_triple -j
 ```
 
 On older versions of CMake, you might have to use `-DCMAKE_TOOLCHAIN_FILE="$HOME/opt/x-tools/$triple/$variant_triple.toolchain.cmake"` instead of `--toolchain ~/opt/x-tools/$triple/$variant_triple.toolchain.cmake`.
@@ -114,8 +126,8 @@ For example, `cmake-kits.json` could contain:
 ```json
 [
     {
-        "name": "Raspberry Pi 4 (64-bit, GCC)",
-        "toolchainFile": "${env:HOME}/opt/x-tools/aarch64-rpi3-linux-gnu/aarch64-rpi4-linux-gnu.toolchain.cmake"
+        "name": "Raspberry Pi 5 (64-bit, GCC)",
+        "toolchainFile": "${env:HOME}/opt/x-tools/aarch64-rpi3-linux-gnu/aarch64-rpi5-linux-gnu.toolchain.cmake"
     }
 ]
 
@@ -144,7 +156,7 @@ Note that the compilers have been configured to use the most compatible target
 by default (e.g. the Raspberry Pi 3 for `aarch64-rpi3-linux-gnu`), so you might
 have to specify additional flags to select the one that fits your needs (e.g.
 `-mcpu=cortex-a72+crc+simd` for the Raspberry Pi 4). See the flags used in the
-CMake toolchain files in [`cmake`](./cmake/) for inspiration.
+CMake toolchain files in the [`cmake`](./cmake/) directory for inspiration.
 
 ### Autotools, Make and other legacy build tools
 
@@ -161,16 +173,44 @@ explicitly.
 ### Pico SDK
 
 To use the `arm-pico-eabi` toolchain for the Raspberry Pi Pico with the Pico SDK,
-set the `PICO_GCC_TRIPLE` environment variable when invoking the CMake configure
-command.
-In case you didn't add the toolchain to the path, set the `PICO_TOOLCHAIN_PATH`
-environment variable as well.
+set the `PICO_SDK_PATH` environment variable when invoking the CMake configure
+command, and use the provided toolchain file:
 
 ```sh
+export PICO_SDK_PATH="$HOME/pico/pico-sdk"
+cmake -S . -B build --toolchain ~/opt/x-tools/arm-pico-eabi/arm-pico-eabi.toolchain.cmake # ...
+cmake --build build -j # ...
+```
+
+If you're using Visual Studio Code with the CMake Tools extension, create a file
+`.vscode/cmake-kits.json` with the following contents:
+```json
+[
+    {
+        "name": "Raspberry Pi Pico (GCC)",
+        "toolchainFile": "${env:HOME}/opt/x-tools/arm-pico-eabi/arm-pico-eabi.toolchain.cmake",
+        "environmentVariables": {"PICO_SDK_PATH": "${env:HOME}/pico/pico-sdk"}
+    }
+]
+```
+Then select this toolchain using <kbd>Ctrl+Shift+P</kbd>, `CMake: Select a Kit`.
+
+The `.vscode/cmake-kits.json` file is also included in this repository:
+[`cmake/cmake-kits.json`](./cmake/cmake-kits.json).
+
+<details>
+
+<summary>Alternative approach without a toolchain file ...</summary>
+
+If you don't want to use a toolchain file, it is possible to select the correct
+toolchain using environment variables:
+
+```sh
+export PICO_SDK_PATH="$HOME/pico/pico-sdk"
 export PICO_GCC_TRIPLE="arm-pico-eabi"
 export PICO_TOOLCHAIN_PATH="$HOME/opt/x-tools/arm-pico-eabi/bin"
 cmake -S . -B build # ...
-cmake --build build # ...
+cmake --build build -j # ...
 ```
 
 If you're using Visual Studio Code with the CMake Tools extension, you can add
@@ -179,7 +219,7 @@ the following to `.vscode/settings.json`:
 {
     "cmake.configureEnvironment": {
         "PICO_GCC_TRIPLE": "arm-pico-eabi",
-    },
+    }
 }
 ```
 
@@ -196,4 +236,6 @@ Alternatively, create a file `.vscode/cmake-kits.json` with the following conten
     }
 ]
 ```
-Then select this toolchain using <kbd>Ctrl+Shift+P</kbd>, `CMake: Select a Kit`.
+
+
+</details>

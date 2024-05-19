@@ -1,5 +1,23 @@
 [
     {
+        "name": "Raspberry Pi 5 (64-bit, GCC)",
+        "toolchainFile": "${env:HOME}/opt/x-tools/aarch64-rpi3-linux-gnu/aarch64-rpi5-linux-gnu.toolchain.cmake"
+    },
+    {
+        "name": "Raspberry Pi 5 (64-bit, Clang)",
+        "toolchainFile": "${env:HOME}/opt/x-tools/aarch64-rpi3-linux-gnu/aarch64-rpi5-linux-gnu.toolchain.cmake",
+        "cmakeSettings": {"TOOLCHAIN_USE_CLANG": true}
+    },
+    {
+        "name": "Raspberry Pi 5 (32-bit, GCC)",
+        "toolchainFile": "${env:HOME}/opt/x-tools/armv8-rpi3-linux-gnueabihf/armv8-rpi5-linux-gnueabihf.toolchain.cmake"
+    },
+    {
+        "name": "Raspberry Pi 5 (32-bit, Clang)",
+        "toolchainFile": "${env:HOME}/opt/x-tools/armv8-rpi3-linux-gnueabihf/armv8-rpi5-linux-gnueabihf.toolchain.cmake",
+        "cmakeSettings": {"TOOLCHAIN_USE_CLANG": true}
+    },
+    {
         "name": "Raspberry Pi 4 (64-bit, GCC)",
         "toolchainFile": "${env:HOME}/opt/x-tools/aarch64-rpi3-linux-gnu/aarch64-rpi4-linux-gnu.toolchain.cmake"
     },
@@ -52,5 +70,10 @@
         "name": "Raspberry Pi (32-bit, Clang)",
         "toolchainFile": "${env:HOME}/opt/x-tools/armv6-rpi-linux-gnueabihf/armv6-rpi-linux-gnueabihf.toolchain.cmake",
         "cmakeSettings": {"TOOLCHAIN_USE_CLANG": true}
+    },
+    {
+        "name": "Raspberry Pi Pico (GCC)",
+        "toolchainFile": "${env:HOME}/opt/x-tools/arm-pico-eabi/arm-pico-eabi.toolchain.cmake",
+        "environmentVariables": {"PICO_SDK_PATH": "${env:HOME}/pico/pico-sdk"}
     }
 ]
