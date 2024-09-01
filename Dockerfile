@@ -71,8 +71,8 @@ RUN . ./${HOST_TRIPLE}.env && \
     ct-ng build || { cat build.log && false; } && rm -rf .build
 
 RUN chmod +w /home/develop/x-tools/${HOST_TRIPLE}
-COPY cmake/Common.toolchain.cmake /home/develop/x-tools/${HOST_TRIPLE}/
-COPY cmake/${HOST_TRIPLE}/* /home/develop/x-tools/${HOST_TRIPLE}/
+COPY --chown=develop:develop cmake/Common.toolchain.cmake /home/develop/x-tools/${HOST_TRIPLE}/
+COPY --chown=develop:develop cmake/${HOST_TRIPLE}/* /home/develop/x-tools/${HOST_TRIPLE}/
 RUN chmod -w /home/develop/x-tools/${HOST_TRIPLE}
 
 # Toolchain (Canadian) ---------------------------------------------------------
@@ -84,7 +84,7 @@ ARG TARGET_TRIPLE=${HOST_TRIPLE}
 ARG GCC_VERSION
 
 # Add cross toolchain for host to PATH
-RUN mkdir -p opt && mv /home/develop/x-tools /home/develop/opt
+RUN mkdir -p opt && chmod -R +w /home/develop/x-tools && mv /home/develop/x-tools /home/develop/opt
 ENV HOST_TOOLCHAIN_PATH=/home/develop/opt/x-tools/${HOST_TRIPLE}
 ENV PATH=${HOST_TOOLCHAIN_PATH}/bin:${PATH}
 
@@ -100,8 +100,8 @@ RUN . ./${TARGET_TRIPLE}.env && \
     ct-ng build || { cat build.log && false; } && rm -rf .build
 
 RUN chmod +w /home/develop/x-tools/HOST-${HOST_TRIPLE}/${TARGET_TRIPLE}
-COPY cmake/Common.toolchain.cmake /home/develop/x-tools/HOST-${HOST_TRIPLE}/${TARGET_TRIPLE}/
-COPY cmake/${TARGET_TRIPLE}/* /home/develop/x-tools/HOST-${HOST_TRIPLE}/${TARGET_TRIPLE}/
+COPY --chown=develop:develop cmake/Common.toolchain.cmake /home/develop/x-tools/HOST-${HOST_TRIPLE}/${TARGET_TRIPLE}/
+COPY --chown=develop:develop cmake/${TARGET_TRIPLE}/* /home/develop/x-tools/HOST-${HOST_TRIPLE}/${TARGET_TRIPLE}/
 RUN chmod -w /home/develop/x-tools/HOST-${HOST_TRIPLE}/${TARGET_TRIPLE}
 
 # Build container (base) -------------------------------------------------------
