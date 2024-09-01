@@ -4,3 +4,5 @@ build.log
 .build
 *.bz2
 *.xz
+/build
+/staging
