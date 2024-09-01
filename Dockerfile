@@ -1,18 +1,25 @@
 # Crosstool-NG -----------------------------------------------------------------
 
-FROM centos:7 as ct-ng
+FROM ubuntu:bionic AS ct-ng
 
 # Install dependencies to build crosstool-ng and the toolchain
-RUN yum -y update && \
-    yum install -y epel-release && \
-    yum install -y autoconf gperf bison file flex texinfo help2man gcc-c++ \
-    libtool make patch ncurses-devel python36-devel perl-Thread-Queue bzip2 \
-    git wget which xz unzip rsync && \
-    yum clean all
+RUN export DEBIAN_FRONTEND=noninteractive && \
+    apt-get update -y && \
+    apt-get install -y \
+        autoconf automake libtool-bin make texinfo help2man \
+        sudo file gawk patch \
+        g++ bison flex gperf \
+        libncurses5-dev python3-dev \
+        perl libthread-queue-perl \
+        ca-certificates wget git \
+        bzip2 xz-utils unzip rsync && \
+    apt-get clean autoclean && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
 
 # Add a user called `develop` and add him to the sudo group
 RUN useradd -m develop && echo "develop:develop" | chpasswd && \
-    usermod -aG wheel develop
+    usermod -aG sudo develop
 
 USER develop
 WORKDIR /home/develop
@@ -42,15 +49,15 @@ WORKDIR /home/develop
 
 # Patches
 # https://www.raspberrypi.org/forums/viewtopic.php?f=91&t=280707&p=1700861#p1700861
-RUN wget https://ftp.debian.org/debian/pool/main/b/binutils/binutils_2.41-6.debian.tar.xz -O- | \
+RUN wget https://ftp.debian.org/debian/pool/main/b/binutils/binutils_2.43.1-2.debian.tar.xz -O- | \
     tar xJ debian/patches/129_multiarch_libpath.patch && \
-    mkdir -p patches/binutils/2.41 && \
-    mv debian/patches/129_multiarch_libpath.patch patches/binutils/2.41 && \
+    mkdir -p patches/binutils/2.43 && \
+    mv debian/patches/129_multiarch_libpath.patch patches/binutils/2.43 && \
     rm -rf debian
 
 # Toolchain --------------------------------------------------------------------
 
-FROM ct-ng as gcc-build
+FROM ct-ng AS gcc-build
 
 ARG HOST_TRIPLE
 ARG GCC_VERSION
