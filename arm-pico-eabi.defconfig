@@ -5,7 +5,7 @@ CT_ARCH_CPU="cortex-m0plus"
 CT_ARCH_ARM_MODE_THUMB=y
 # CT_ARCH_USE_MMU is not set
 CT_ARCH_FLOAT_SW=y
-CT_TOOLCHAIN_PKGVERSION="tttapa/docker-arm-cross-toolchain:pico"
+CT_TOOLCHAIN_PKGVERSION="tttapa/docker-arm-cross-toolchain:arm-pico"
 CT_TOOLCHAIN_BUGURL="https://github.com/tttapa/docker-arm-cross-toolchain"
 CT_TARGET_VENDOR="pico"
 CT_TARGET_ALIAS="pico"
@@ -23,6 +23,7 @@ CT_LIBC_NEWLIB_RETARGETABLE_LOCKING=y
 CT_LIBC_NEWLIB_EXTRA_CONFIG_ARRAY="--disable-nls --enable-newlib-reent-check-verify"
 CT_CC_GCC_EXTRA_CONFIG_ARRAY="--enable-libstdcxx-backtrace=yes"
 # CT_CC_GCC_CONFIG_TLS is not set
+CT_CC_GCC_LTO_ZSTD=n
 CT_CC_GCC_DISABLE_PCH=y
 CT_CC_GCC_DEC_FLOATS_NO=y
 CT_CC_LANG_CXX=y
