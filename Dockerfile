@@ -50,7 +50,7 @@ WORKDIR /home/develop
 # Patches
 COPY --chown=develop:develop patches patches
 # https://www.raspberrypi.org/forums/viewtopic.php?f=91&t=280707&p=1700861#p1700861
-RUN wget https://ftp.debian.org/debian/pool/main/b/binutils/binutils_2.43.1-2.debian.tar.xz -O- | \
+RUN wget https://ftp.debian.org/debian/pool/main/b/binutils/binutils_2.43.1-3.debian.tar.xz -O- | \
     tar xJ debian/patches/129_multiarch_libpath.patch && \
     mkdir -p patches/binutils/2.43.1 && \
     mv debian/patches/129_multiarch_libpath.patch patches/binutils/2.43.1 && \
