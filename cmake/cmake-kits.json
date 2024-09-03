@@ -75,5 +75,10 @@
         "name": "Raspberry Pi Pico (GCC)",
         "toolchainFile": "${env:HOME}/opt/x-tools/arm-pico-eabi/arm-pico-eabi.toolchain.cmake",
         "environmentVariables": {"PICO_SDK_PATH": "${env:HOME}/pico/pico-sdk"}
+    },
+    {
+        "name": "Raspberry Pi Pico 2 (GCC)",
+        "toolchainFile": "${env:HOME}/opt/x-tools/arm-pico2-eabi/arm-pico2-eabi.toolchain.cmake",
+        "environmentVariables": {"PICO_SDK_PATH": "${env:HOME}/pico/pico-sdk"}
     }
 ]
