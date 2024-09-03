@@ -4,7 +4,7 @@ Repository with ARM cross-compilation toolchains (mainly for Raspberry Pi),
 available as [stand-alone tarballs](https://github.com/tttapa/docker-arm-cross-toolchain/releases)
 or [Docker containers](https://github.com/tttapa/docker-arm-cross-toolchain/pkgs/container/docker-arm-cross-toolchain).
 
-- **GCC**: 14.1, 13.2, 12.3
+- **GCC**: 14.2, 13.3, 12.4
 - **Languages**: C, C++, Fortran
 - **Glibc**: 2.27 and later
 - **Linux**: 4.15 and later
@@ -12,12 +12,12 @@ or [Docker containers](https://github.com/tttapa/docker-arm-cross-toolchain/pkgs
 
 The toolchains are built using [crosstool-NG](https://crosstool-ng.github.io/).  
 The Linux compilers include the address and undefined behavior sanitizers (Asan
-and UBsan) and gdbserver (14.2). They are compatible with glibc 2.27
+and UBsan) and gdbserver (15.1). They are compatible with glibc 2.27
 and Linux 4.15 or later, and have been patched for [Debian Multiarch](https://wiki.debian.org/Multiarch).  
-The bare-metal compiler ships with newlib 4.4 and newlib-nano 4.3.
+The bare-metal compilers ship with newlib 4.4 and newlib-nano 4.3.
 
-The toolchains themselves can be used on any x86-64 system running CentOS 7 or
-later.
+The toolchains themselves can be used on any x86-64 system running Ubuntu 18.04 Bionic, Debian 10 Buster, Rocky 8 (or later),
+or on a Raspberry Pi running 64-bit Ubuntu 18.04 Bionic, 64-bit Raspberry Pi OS 10 Buster (or later).
 
 ## Download
 
@@ -25,12 +25,13 @@ The ready-to-use toolchain tarballs can be downloaded from the [Releases page](h
 Direct links are available in the table below: 
 
 
-| Target triplet | GCC 14.1 | GCC 13.2 | GCC 12.3 | Supported hardware | Supported distributions |
+| Target triplet | GCC 14.2 | GCC 13.3 | GCC 12.4 | Recommended hardware | Supported distributions |
 |---------------:|:--------:|:--------:|:--------:|:-------------------|:------------------------|
-| `aarch64-rpi3-linux-gnu` | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-gcc14.tar.xz) | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-gcc13.tar.xz) | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-gcc12.tar.xz) | 64-bit ARMv8 (RPi 2B rev. 1.2, RPi 3B/3B+, CM 3, RPi 4B/400, CM 4, RPi Zero 2 W, RPi 5) | Ubuntu 18.04 Bionic, Debian 10 Buster, Rocky 8 and later |
-| `armv8-rpi3-linux-gnueabihf` | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv8-rpi3-linux-gnueabihf-gcc14.tar.xz) | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv8-rpi3-linux-gnueabihf-gcc13.tar.xz) | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv8-rpi3-linux-gnueabihf-gcc12.tar.xz) | 32-bit ARMv8 (RPi 2B rev. 1.2, RPi 3B/3B+, CM 3, RPi 4B/400, CM 4, RPi Zero 2 W, RPi 5) | Ubuntu 18.04 Bionic, Debian 10 Buster and later |
-| `armv6-rpi-linux-gnueabihf` | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv6-rpi-linux-gnueabihf-gcc14.tar.xz) | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv6-rpi-linux-gnueabihf-gcc13.tar.xz) | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv6-rpi-linux-gnueabihf-gcc12.tar.xz) | 32-bit ARMv6 (RPi A/B/A+/B+, CM 1, RPi Zero/Zero W) | Raspberry Pi OS 10 Buster and later |
-| `arm-pico-eabi` | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-arm-pico-eabi-gcc14.tar.xz) | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-arm-pico-eabi-gcc13.tar.xz) | [⬇️](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-arm-pico-eabi-gcc12.tar.xz) | 32-bit ARM Cortex-M0+ (RP2040, RPi Pico, RPi Pico W) | - |
+| `aarch64-rpi3-linux-gnu` | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-gcc14.tar.xz)<br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-aarch64-rpi3-linux-gnu-gcc14.tar.xz) | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-gcc13.tar.xz)<br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-aarch64-rpi3-linux-gnu-gcc13.tar.xz) | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-gcc12.tar.xz)<br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-aarch64-rpi3-linux-gnu-gcc12.tar.xz) | 64-bit ARMv8:<br>RPi 2B rev. 1.2, RPi 3B/3B+, CM 3,<br>RPi 4B/400, CM 4, RPi Zero 2 W, RPi 5 | Ubuntu 18.04 Bionic,<br>Debian 10 Buster,<br>Rocky 8 and later |
+| `armv8-rpi3-linux-gnueabihf` | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv8-rpi3-linux-gnueabihf-gcc14.tar.xz)<br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-armv8-rpi3-linux-gnueabihf-gcc14.tar.xz) | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv8-rpi3-linux-gnueabihf-gcc13.tar.xz)<br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-armv8-rpi3-linux-gnueabihf-gcc13.tar.xz) | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv8-rpi3-linux-gnueabihf-gcc12.tar.xz)<br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-armv8-rpi3-linux-gnueabihf-gcc12.tar.xz) | 32-bit ARMv8:<br>RPi 2B rev. 1.2, RPi 3B/3B+, CM 3,<br>RPi 4B/400, CM 4, RPi Zero 2 W, RPi 5 | Ubuntu 18.04 Bionic,<br>Debian 10 Buster<br>and later |
+| `armv6-rpi-linux-gnueabihf` | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv6-rpi-linux-gnueabihf-gcc14.tar.xz)<br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-armv6-rpi-linux-gnueabihf-gcc14.tar.xz) | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv6-rpi-linux-gnueabihf-gcc13.tar.xz)<br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-armv6-rpi-linux-gnueabihf-gcc13.tar.xz) | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv6-rpi-linux-gnueabihf-gcc12.tar.xz)<br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-armv6-rpi-linux-gnueabihf-gcc12.tar.xz) | 32-bit ARMv6:<br>RPi A/B/A+/B+, CM 1, RPi Zero/Zero W | Raspberry Pi OS 10 Buster<br>and later |
+| `arm-pico-eabi` | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-arm-pico-eabi-gcc14.tar.xz)<br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-arm-pico-eabi-gcc14.tar.xz) | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-arm-pico-eabi-gcc13.tar.xz)<br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-arm-pico-eabi-gcc13.tar.xz) | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-arm-pico-eabi-gcc12.tar.xz)<br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-arm-pico-eabi-gcc12.tar.xz) | 32-bit ARM Cortex-M0+:<br>RP2040, RPi Pico, RPi Pico W | Raspberry Pi Pico SDK 2.0.0 |
+| `arm-pico2-eabi` | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-arm-pico2-eabi-gcc14.tar.xz)<br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-arm-pico2-eabi-gcc14.tar.xz) | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-arm-pico2-eabi-gcc13.tar.xz)<br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-arm-pico2-eabi-gcc13.tar.xz) | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-arm-pico2-eabi-gcc12.tar.xz)<br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-arm-pico2-eabi-gcc12.tar.xz) | 32-bit ARM Cortex-M33:<br>RP2350, RPi Pico 2 | Raspberry Pi Pico SDK 2.0.0 |
 
 For modern Raspberry Pi boards running 64-bit Raspberry Pi OS or 64-bit Ubuntu,
 use the `aarch64-rpi3-linux-gnu` toolchain.  
@@ -239,3 +240,26 @@ Alternatively, create a file `.vscode/cmake-kits.json` with the following conten
 
 
 </details>
+
+## Deployment
+
+Recent versions of GCC require recent versions of the C++ standard library,
+`libstdc++`. If the operating system on the Raspberry Pi you want to deploy to
+uses an older version of `libstdc++`, you have multiple options:
+
+ - Link the C++ standard library statically, using the `-static-libstdc++` flag.
+   This results in slightly larger binaries, but improves portability.
+ - Install a newer version of the C++ standard library globally by copying
+   `x-tools/aarch64-rpi3-linux-gnu/aarch64-rpi3-linux-gnu/sysroot/lib64/libstdc++.so.6.0.*`
+   from the toolchain to the `/usr/local/lib` folder on the Pi, and run `sudo ldconfig`.
+ - Ship a copy of `libstdc++` with your application, and ensure that it is
+   loaded before the global one, by using the `-rpath` flag or the
+   `LD_LIBRARY_PATH` environment variable. This may not be an option if your
+   binary is loaded by another program (e.g. Python modules).
+ - Use a Docker container with a recent version of the C++ standard library.
+
+Other libraries, such as `libasan.so` can be installed similarly.
+
+Note that this is not at all true for the C standard library, `libc.so`. The
+C standard library is tightly coupled to the rest of the system, and cannot be
+replaced by a newer version.
