@@ -109,7 +109,7 @@ jobs:
       - name: Extract toolchain
         run: tar xf x-tools-${{ matrix.triple }}-gcc${{ matrix.gcc-version }}.tar.xz
       - name: Install pico-sdk
-        if: ${{ matrix.triple == 'arm-pico-eabi' }}
+        if: ${{ matrix.triple == 'arm-pico-eabi' || matrix.triple == 'arm-pico2-eabi' }}
         run: |
           git clone --single-branch --depth=1 --shallow-submodules https://github.com/raspberrypi/pico-sdk.git
           echo "PICO_SDK_PATH=$PWD/pico-sdk" >> "$GITHUB_ENV"
@@ -194,7 +194,7 @@ jobs:
       - name: Export toolchain
         run: |
           container=$(docker run -d ${{ env.TEMPORARY_TAG }}-canadian \
-              bash -c "tar cJf x-tools.tar.xz x-tools")
+              bash -c "mv x-tools/HOST-aarch64-rpi3-linux-gnu/${{ matrix.triple }} x-tools && rmdir x-tools/HOST-aarch64-rpi3-linux-gnu && tar cJf x-tools.tar.xz x-tools")
           status=$(docker wait $container)
           if [ $status -ne 0 ]; then
               echo "Error creating toolchain archives"
