@@ -251,7 +251,8 @@ uses an older version of `libstdc++`, you have multiple options:
    This results in slightly larger binaries, but improves portability.
  - Install a newer version of the C++ standard library globally by copying
    `x-tools/aarch64-rpi3-linux-gnu/aarch64-rpi3-linux-gnu/sysroot/lib64/libstdc++.so.6.0.*`
-   from the toolchain to the `/usr/local/lib` folder on the Pi, and run `sudo ldconfig`.
+   from the toolchain to the `/usr/local/lib/aarch64-linux-gnu` folder on the 
+   Pi, and run `sudo ldconfig`.
  - Ship a copy of `libstdc++` with your application, and ensure that it is
    loaded before the global one, by using the `-rpath` flag or the
    `LD_LIBRARY_PATH` environment variable. This may not be an option if your
@@ -263,3 +264,14 @@ Other libraries, such as `libasan.so` can be installed similarly.
 Note that this is not at all true for the C standard library, `libc.so`. The
 C standard library is tightly coupled to the rest of the system, and cannot be
 replaced by a newer version.
+
+## Common issues
+
+- `/usr/lib/aarch64-linux-gnu/libstdc++.so.6: version GLIBCXX_3.4.33 not found`:  
+  This means that the available version of the C++ standard library is too old.
+  See [§Deployment](#deployment) for instructions to resolve this issue.
+- `/lib64/libc.so.6: version ``GLIBC_2.27' not found`:  
+  Your operating system is too old. Use a newer operating system, or an older
+  version of the toolchain. Note that upgrading glibc is not possible.
+- `Could NOT find Threads (missing: Threads_FOUND)`:   
+  See https://github.com/tttapa/RPi-Cross-Cpp-Development/issues/2#issuecomment-1431703892 for a fix.
