@@ -196,7 +196,7 @@ jobs:
       - name: Export toolchain
         run: |
           container=$(docker run -d ${{ env.TEMPORARY_TAG }}-canadian \
-              bash -c "mv x-tools/HOST-aarch64-rpi3-linux-gnu/${{ matrix.triple }} x-tools && rmdir x-tools/HOST-aarch64-rpi3-linux-gnu && tar cJf x-tools.tar.xz x-tools")
+              bash -c "rsync -a x-tools/HOST-aarch64-rpi3-linux-gnu/${{ matrix.triple }} x-tools && chmod -R +w x-tools/HOST-aarch64-rpi3-linux-gnu && rm -rf x-tools/HOST-aarch64-rpi3-linux-gnu && tar cJf x-tools.tar.xz x-tools")
           status=$(docker wait $container)
           if [ $status -ne 0 ]; then
               echo "Error creating toolchain archives"
