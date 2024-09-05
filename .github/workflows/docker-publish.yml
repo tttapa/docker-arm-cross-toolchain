@@ -20,6 +20,7 @@ jobs:
       contents: write
       packages: write
     strategy:
+      fail-fast: false
       matrix:
         triple:
           - 'aarch64-rpi3-linux-gnu'
@@ -147,6 +148,7 @@ jobs:
       contents: write
       packages: write
     strategy:
+      fail-fast: false
       matrix:
         triple:
           - 'aarch64-rpi3-linux-gnu'
