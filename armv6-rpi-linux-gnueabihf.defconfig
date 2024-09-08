@@ -11,14 +11,14 @@ CT_TOOLCHAIN_PKGVERSION="tttapa/docker-arm-cross-toolchain:armv6-rpi"
 CT_TOOLCHAIN_BUGURL="https://github.com/tttapa/docker-arm-cross-toolchain"
 CT_TARGET_VENDOR="rpi"
 CT_KERNEL_LINUX=y
-CT_LINUX_V_4_15=y
+CT_LINUX_V_5_4=y
 # CT_KERNEL_LINUX_INSTALL_CHECK is not set
 CT_BINUTILS_V_2_43=y
 CT_BINUTILS_LINKER_LD_GOLD=y
 CT_BINUTILS_GOLD_THREADS=y
 CT_BINUTILS_LD_WRAPPER=y
 CT_BINUTILS_PLUGINS=y
-CT_GLIBC_V_2_27=y
+CT_GLIBC_V_2_31=y
 CT_GLIBC_EXTRA_CFLAGS=""
 CT_CC_GCC_EXTRA_CONFIG_ARRAY="--enable-multiarch --enable-libstdcxx-backtrace=yes"
 CT_CC_GCC_LTO_ZSTD=y
