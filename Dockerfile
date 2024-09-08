@@ -9,7 +9,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
         autoconf automake libtool-bin make texinfo help2man \
         sudo file gawk patch \
         g++ bison flex gperf \
-        libncurses5-dev python3-dev \
+        libncurses5-dev \
         perl libthread-queue-perl \
         ca-certificates wget git \
         bzip2 xz-utils unzip rsync && \
