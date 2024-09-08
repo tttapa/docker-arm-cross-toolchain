@@ -37,15 +37,13 @@ ENV PATH=/home/develop/.local/bin:${PATH}
 # Build crosstool-ng
 RUN git clone -b master --single-branch --depth 1 \
         https://github.com/crosstool-ng/crosstool-ng.git
-WORKDIR /home/develop/crosstool-ng
-RUN git show --summary && \
+RUN cd crosstool-ng && git show --summary && \
     ./bootstrap && \
     mkdir build && cd build && \
     ../configure --prefix=/home/develop/.local && \
     make -j$(($(nproc) * 2)) && \
     make install &&  \
-    cd .. && rm -rf build
-WORKDIR /home/develop
+    cd /home/develop && rm -rf crosstool-ng
 
 # Patches
 COPY --chown=develop:develop patches patches
