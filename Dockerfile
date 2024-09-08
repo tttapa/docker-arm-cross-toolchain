@@ -5,7 +5,7 @@ FROM --platform=$BUILDPLATFORM ubuntu:bionic AS ct-ng
 # Install dependencies to build crosstool-ng and the toolchain
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update -y && \
-    apt-get install -y \
+    apt-get install -y --no-install-recommends \
         autoconf automake libtool-bin make texinfo help2man \
         sudo file gawk patch \
         g++ bison flex gperf \
