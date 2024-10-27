@@ -265,6 +265,22 @@ Note that this is not at all true for the C standard library, `libc.so`. The
 C standard library is tightly coupled to the rest of the system, and cannot be
 replaced by a newer version.
 
+## ABI compatibility
+
+If you plan to link code compiled using these toolchains to libraries that are
+provided by Raspberry Pi OS, you should use the `armv6-rpi-linux-gnueabihf`
+toolchain for 32-bit RPi OS or the `aarch64-rpi3-linux-gnu` toolchain for 64-bit
+RPi OS. Even though using the `armv8-rpi3-linux-gnueabihf` toolchain may result
+in significantly more performant binaries, they may not be compatible with
+libraries that were compiled for the ARMv6 architecture (which includes all
+libraries that are part of Raspberry Pi OS). For instance, the `std::shared_ptr`
+ABI is different between the `armv8-rpi3-linux-gnueabihf` and
+`armv6-rpi-linux-gnueabihf` toolchains.
+
+If you compile all your libraries from source using the same toolchain (e.g.
+using a package manager) and link them statically, ABI incompatibility is
+usually less of a concern.
+
 ## Common issues
 
 - `/usr/lib/aarch64-linux-gnu/libstdc++.so.6: version GLIBCXX_3.4.33 not found`:  
