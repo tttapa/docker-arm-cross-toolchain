@@ -12,8 +12,8 @@ set(CMAKE_LIBRARY_ARCHITECTURE arm-linux-gnueabihf)
 set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "armhf")
 
 # Compiler flags
-set(CMAKE_C_FLAGS_INIT       "-mcpu=arm1176jzf-s -mfpu=vfp -mfloat-abi=hard")
-set(CMAKE_CXX_FLAGS_INIT     "-mcpu=arm1176jzf-s -mfpu=vfp -mfloat-abi=hard")
-set(CMAKE_Fortran_FLAGS_INIT "-mcpu=arm1176jzf-s -mfpu=vfp -mfloat-abi=hard")
+set(CMAKE_C_FLAGS_INIT       "-mtune=arm1176jzf-s -mfpu=vfp -mfloat-abi=hard")
+set(CMAKE_CXX_FLAGS_INIT     "-mtune=arm1176jzf-s -mfpu=vfp -mfloat-abi=hard")
+set(CMAKE_Fortran_FLAGS_INIT "-mtune=arm1176jzf-s -mfpu=vfp -mfloat-abi=hard")
 
 include("${CMAKE_CURRENT_LIST_DIR}/Common.toolchain.cmake")

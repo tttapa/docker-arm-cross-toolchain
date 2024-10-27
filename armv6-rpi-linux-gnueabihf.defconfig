@@ -3,8 +3,9 @@ CT_PATCH_BUNDLED_LOCAL=y
 CT_LOCAL_PATCH_DIR="${CT_TOP_DIR}/patches"
 # CT_LOG_PROGRESS_BAR is not set
 CT_ARCH_ARM=y
-CT_ARCH_CPU="arm1176jzf-s"
+CT_ARCH_TUNE="arm1176jzf-s"
 CT_ARCH_SUFFIX="v6"
+CT_ARCH_ARCH="armv6+fp"
 CT_ARCH_FPU="vfp"
 CT_ARCH_FLOAT_HW=y
 CT_TOOLCHAIN_PKGVERSION="tttapa/docker-arm-cross-toolchain:armv6-rpi"
