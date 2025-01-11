@@ -1,0 +1,11 @@
+[settings]
+arch=armv6
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=14
+os=Linux
+
+[tool_requires]
+docker-arm-cross-toolchain/1.0.0@tttapa

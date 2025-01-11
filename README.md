@@ -19,6 +19,9 @@ The bare-metal compilers ship with newlib 4.4 and newlib-nano 4.3.
 The toolchains themselves can be used on any x86-64 system running Ubuntu 18.04 Bionic, Debian 10 Buster, Rocky 8 (or later),
 or on a Raspberry Pi running 64-bit Ubuntu 20.04 Bionic, 64-bit Raspberry Pi OS 11 Bullseye (or later).
 
+Optional integration with Conan is provided: the cross-compilation toolchains
+can be added as a tool requirements in your Conan profile.
+
 ## Download
 
 The ready-to-use toolchain tarballs can be downloaded from the [Releases page](https://github.com/tttapa/docker-arm-cross-toolchain/releases) (no Docker required).  
@@ -54,7 +57,36 @@ the `-mcpu=cortex-a76+crypto` (RPi 5) or `-mcpu=cortex-a72` (RPi 4) flag ([GCC A
 For the Raspberry Pi Pico and other RP2040-based boards, use the bare-metal 
 `arm-pico-eabi` toolchain.
 
-## Installation
+## Installation and use through Conan
+
+Installing the toolchains through Conan is the easiest approach for most use
+cases. Cross-compiling an existing Conan+CMake project using the toolchains from
+this repository can be done as follows:
+
+```sh
+# Download this repository and add its recipes to Conan
+git clone https://github.com/tttapa/docker-arm-cross-toolchain.git
+conan remote add tttapa-docker-arm-cross-toolchain ./docker-arm-cross-toolchain
+```
+```sh
+# Open a Conan+CMake project
+cd ./docker-arm-cross-toolchain/test # just a simple example project
+# Install the toolchain using Conan (select the appropriate profile for your RPi)
+conan install . --build=missing -pr ../profiles/aarch64-rpi3-linux-gnu.conan
+# Configure the CMake project
+cmake --preset conan-release --fresh
+# Build the CMake project
+cmake --build --preset conan-release
+# Verify that the files were indeed cross-compiled for the RPi
+file build/Release/hello_*
+```
+
+The compiler version etc. can be modified in the Conan profiles in the
+[`profiles`](./profiles) directory.
+
+If you wish not to use Conan, you can follow the manual instructions below.
+
+## Manual installation
 
 Download the archive of the toolchain you need using the links above. 
 Then extract it to a convenient location, e.g. `~/opt`.
@@ -83,7 +115,7 @@ the GCC version:
 aarch64-rpi3-linux-gnu-gcc --version
 ```
 
-## Usage
+## Manual usage
 
 ### CMake
 
