@@ -8,6 +8,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get install -y --no-install-recommends \
         autoconf automake libtool-bin make texinfo help2man \
         sudo file gawk patch \
+        python3 \
         g++ bison flex gperf \
         libncurses5-dev \
         perl libthread-queue-perl \
@@ -35,9 +36,11 @@ RUN wget https://ftp.gnu.org/gnu/autoconf/autoconf-2.72.tar.gz -O- | tar xz && \
 ENV PATH=/home/develop/.local/bin:${PATH}
 
 # Build crosstool-ng
-RUN git clone -b master --single-branch --depth 1 \
-        https://github.com/crosstool-ng/crosstool-ng.git
-RUN cd crosstool-ng && git show --summary && \
+RUN git clone -b master --single-branch \
+        https://github.com/crosstool-ng/crosstool-ng.git && \
+    cd crosstool-ng && \
+    git checkout f390dba6c73845389a3217169402d95a837fcee8 && \
+    git show --summary && \
     ./bootstrap && \
     mkdir build && cd build && \
     ../configure --prefix=/home/develop/.local && \
@@ -48,10 +51,10 @@ RUN cd crosstool-ng && git show --summary && \
 # Patches
 COPY --chown=develop:develop patches patches
 # https://www.raspberrypi.org/forums/viewtopic.php?f=91&t=280707&p=1700861#p1700861
-RUN wget https://ftp.debian.org/debian/pool/main/b/binutils/binutils_2.43.1-3.debian.tar.xz -O- | \
+RUN wget https://ftp.debian.org/debian/pool/main/b/binutils/binutils_2.45-3.debian.tar.xz -O- | \
     tar xJ debian/patches/129_multiarch_libpath.patch && \
-    mkdir -p patches/binutils/2.43.1 && \
-    mv debian/patches/129_multiarch_libpath.patch patches/binutils/2.43.1 && \
+    mkdir -p patches/binutils/2.45 && \
+    mv debian/patches/129_multiarch_libpath.patch patches/binutils/2.45 && \
     rm -rf debian
 
 # Toolchain --------------------------------------------------------------------
@@ -60,11 +63,13 @@ FROM --platform=$BUILDPLATFORM ct-ng AS gcc-build
 
 ARG HOST_TRIPLE
 ARG GCC_VERSION
+ARG PKG_VERSION
 
 # Build the toolchain
 COPY --chown=develop:develop ${HOST_TRIPLE}.defconfig .
 COPY --chown=develop:develop ${HOST_TRIPLE}.env .
 RUN [ -n "${GCC_VERSION}" ] && { echo "CT_GCC_V_${GCC_VERSION}=y" >> ${HOST_TRIPLE}.defconfig; }
+RUN [ -n "${PKG_VERSION}" ] && { echo "CT_TOOLCHAIN_PKGVERSION=\"tttapa/docker-arm-cross-toolchain:${HOST_TRIPLE}@${PKG_VERSION}\"" >> ${HOST_TRIPLE}.defconfig; }
 RUN cp ${HOST_TRIPLE}.defconfig defconfig && ct-ng defconfig
 RUN . ./${HOST_TRIPLE}.env && \
     ct-ng build || { cat build.log && false; } && rm -rf .build
@@ -91,6 +96,7 @@ ENV PATH=${HOST_TOOLCHAIN_PATH}/bin:${PATH}
 COPY --chown=develop:develop ${TARGET_TRIPLE}.defconfig .
 COPY --chown=develop:develop ${TARGET_TRIPLE}.env .
 RUN [ -n "${GCC_VERSION}" ] && { echo "CT_GCC_V_${GCC_VERSION}=y" >> ${TARGET_TRIPLE}.defconfig; }
+RUN [ -n "${PKG_VERSION}" ] && { echo "CT_TOOLCHAIN_PKGVERSION=\"tttapa/docker-arm-cross-toolchain:${HOST_TRIPLE}@${PKG_VERSION}\"" >> ${TARGET_TRIPLE}.defconfig; }
 RUN echo "CT_CANADIAN=y" >> ${TARGET_TRIPLE}.defconfig && \
     echo "CT_HOST=\"${HOST_TRIPLE}\"" >> ${TARGET_TRIPLE}.defconfig
 RUN cat ${TARGET_TRIPLE}.defconfig && \
