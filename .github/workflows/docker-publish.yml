@@ -32,6 +32,7 @@ jobs:
           - '12'
           - '13'
           - '14'
+          - '15'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -82,6 +83,7 @@ jobs:
           build-args: |
             HOST_TRIPLE=${{ matrix.triple }}
             GCC_VERSION=${{ matrix.gcc-version }}
+            PKG_VERSION=${{ github.event.release.tag_name || (startsWith(github.ref, 'refs/tags/') && github.ref_name) || github.sha }}
           load: true
           tags: ${{ env.TEMPORARY_TAG }}
           cache-from: type=gha,scope=${{ matrix.triple }}-gcc${{ matrix.gcc-version }}
@@ -137,6 +139,7 @@ jobs:
           build-args: |
             HOST_TRIPLE=${{ matrix.triple }}
             GCC_VERSION=${{ matrix.gcc-version }}
+            PKG_VERSION=${{ github.event.release.tag_name || (startsWith(github.ref, 'refs/tags/') && github.ref_name) || github.sha }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -160,9 +163,16 @@ jobs:
           - '12'
           - '13'
           - '14'
+          - '15'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Disk cleanup
+        run: >
+            sudo rm -rf /usr/lib/jvm /usr/share/dotnet /usr/share/swift
+            /usr/local/.ghcup /usr/local/julia* /usr/local/lib/android
+            /usr/local/share/chromium /opt/microsoft /opt/google /opt/az
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@49b3bc8e6bdd4a60e6116a5414239cba5943d3cf
@@ -185,6 +195,7 @@ jobs:
             TARGET_TRIPLE=${{ matrix.triple }}
             HOST_TRIPLE=aarch64-rpi3-linux-gnu
             GCC_VERSION=${{ matrix.gcc-version }}
+            PKG_VERSION=${{ github.event.release.tag_name || (startsWith(github.ref, 'refs/tags/') && github.ref_name) || github.sha }}
           load: true
           tags: ${{ env.TEMPORARY_TAG }}-canadian
           cache-from: |
