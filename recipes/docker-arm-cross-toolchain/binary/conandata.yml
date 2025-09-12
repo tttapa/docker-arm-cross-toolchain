@@ -1,4 +1,89 @@
 sources:
+  "1.1.0":
+    "15.2":
+      Linux-x86_64:
+        aarch64-rpi3-linux-gnu:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-aarch64-rpi3-linux-gnu-gcc15.tar.xz
+          sha256: 5e4050fe7587dbfede562e628e8df0124c14734b00fcf996beec858a61f9d4aa
+        armv8-rpi3-linux-gnueabihf:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-armv8-rpi3-linux-gnueabihf-gcc15.tar.xz
+          sha256: a08d3610a7cc4e70ae9cf24aa9bfae92882307ddb6a6133080969657d1bf6eb6
+        armv6-rpi-linux-gnueabihf:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-armv6-rpi-linux-gnueabihf-gcc15.tar.xz
+          sha256: 89c618ec0d9134b512db3e2c377b65323342ca4a5c8c5a6346fe1ffc872841fb
+      Linux-armv8:
+        aarch64-rpi3-linux-gnu:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-aarch64-rpi3-linux-gnu-aarch64-rpi3-linux-gnu-gcc15.tar.xz
+          sha256: 38bbc3f0b77bcb5037516a4008dc84da266f5f9aeba29497bf1aa667a904c1a6
+        armv8-rpi3-linux-gnueabihf:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-aarch64-rpi3-linux-gnu-armv8-rpi3-linux-gnueabihf-gcc15.tar.xz
+          sha256: b3fe05de6929d1d2044c177dd4d9cb632ad9fec6a48090f4dee4ea45766245f7
+        armv6-rpi-linux-gnueabihf:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-aarch64-rpi3-linux-gnu-armv6-rpi-linux-gnueabihf-gcc15.tar.xz
+          sha256: eb7032595a3c57be0d66fc0d53a7e2afcd6bbc6183a385d9693b3dda487b5a97
+    "14.3":
+      Linux-x86_64:
+        aarch64-rpi3-linux-gnu:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-aarch64-rpi3-linux-gnu-gcc14.tar.xz
+          sha256: 0921c7a407e3120f8e54b73c0dc33e26184d9084b5e6e0b9b5d02464ae808943
+        armv8-rpi3-linux-gnueabihf:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-armv8-rpi3-linux-gnueabihf-gcc14.tar.xz
+          sha256: b61d880d1f989fdb40ea2eaec16161ada709832a7bdf3bd738f8c76596d4aac4
+        armv6-rpi-linux-gnueabihf:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-armv6-rpi-linux-gnueabihf-gcc14.tar.xz
+          sha256: d09311dea9b01445c60f8e2a610e1dea8da03e41fd61976ef1850b2855b94b59
+      Linux-armv8:
+        aarch64-rpi3-linux-gnu:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-aarch64-rpi3-linux-gnu-aarch64-rpi3-linux-gnu-gcc14.tar.xz
+          sha256: 5e9d5bdcf2a2234fb1f79b0d5d46598827db072f993d7852ef57b29ca8efa4b4
+        armv8-rpi3-linux-gnueabihf:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-aarch64-rpi3-linux-gnu-armv8-rpi3-linux-gnueabihf-gcc14.tar.xz
+          sha256: dda0efd41a291b99dc70454d6cde205293eb00c5f3a16699fbf56c0efa6e688b
+        armv6-rpi-linux-gnueabihf:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-aarch64-rpi3-linux-gnu-armv6-rpi-linux-gnueabihf-gcc14.tar.xz
+          sha256: 8551e6893f8c4e618aa0f9965226210af5450d1bda6e2c1cf002c9faf5101e2a
+    "13.4":
+      Linux-x86_64:
+        aarch64-rpi3-linux-gnu:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-aarch64-rpi3-linux-gnu-gcc13.tar.xz
+          sha256: 2ac1a0df2237391804e32455f7c0cd9984d3062bfca00c860da7c6ae309d58fa
+        armv8-rpi3-linux-gnueabihf:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-armv8-rpi3-linux-gnueabihf-gcc13.tar.xz
+          sha256: 820c6949d5a52673d2390cd4419d669c2dbbf6f69b9a1067221995891bf51627
+        armv6-rpi-linux-gnueabihf:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-armv6-rpi-linux-gnueabihf-gcc13.tar.xz
+          sha256: 93ded492b01386884421fe3f420ccd9af21535ef88f89dfec745782532c40247
+      Linux-armv8:
+        aarch64-rpi3-linux-gnu:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-aarch64-rpi3-linux-gnu-aarch64-rpi3-linux-gnu-gcc13.tar.xz
+          sha256: c981678bd94b6ac4d51a8d81d3049a76f5b05d7043b61fbbf2244a3c4d072d30
+        armv8-rpi3-linux-gnueabihf:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-aarch64-rpi3-linux-gnu-armv8-rpi3-linux-gnueabihf-gcc13.tar.xz
+          sha256: 4e9121a15b280dede66ebbf20634821d9b7a71bb00aca310d497c750791dfab2
+        armv6-rpi-linux-gnueabihf:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-aarch64-rpi3-linux-gnu-armv6-rpi-linux-gnueabihf-gcc13.tar.xz
+          sha256: 6cc93db20e7ac08cfbc199733fc9dcb7bfa6c41b63e064557cdfc826b371b1a7
+    "12.5":
+      Linux-x86_64:
+        aarch64-rpi3-linux-gnu:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-aarch64-rpi3-linux-gnu-gcc12.tar.xz
+          sha256: ff51d9fd7b3c4f57605e4e16944b9342740876ff3c14991a932ffc9611af5776
+        armv8-rpi3-linux-gnueabihf:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-armv8-rpi3-linux-gnueabihf-gcc12.tar.xz
+          sha256: c883ea7c14da5bfb6313a302724d860315be99915126d47023b15437ccea7857
+        armv6-rpi-linux-gnueabihf:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-armv6-rpi-linux-gnueabihf-gcc12.tar.xz
+          sha256: 64f55e89efd36006877e0b218a8a277101603a87b4e52328f66b96c74aa405c6
+      Linux-armv8:
+        aarch64-rpi3-linux-gnu:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-aarch64-rpi3-linux-gnu-aarch64-rpi3-linux-gnu-gcc12.tar.xz
+          sha256: 330fe973b1920c41e46293434b06f7f577f5e0a0fda1a269ba8dc68e352fd567
+        armv8-rpi3-linux-gnueabihf:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-aarch64-rpi3-linux-gnu-armv8-rpi3-linux-gnueabihf-gcc12.tar.xz
+          sha256: e0e25cb1be6b9ae2591c02aca82b0f64a038c93477fc29a508b33943ac38c60a
+        armv6-rpi-linux-gnueabihf:
+          url: https://github.com/tttapa/docker-arm-cross-toolchain/releases/download/1.1.0/x-tools-aarch64-rpi3-linux-gnu-armv6-rpi-linux-gnueabihf-gcc12.tar.xz
+          sha256: 730be1bc56d9cf8adf40b250a0f62a8fde03070d007edf2b9517c4d505e04d3d
   "1.0.0":
     "14.2":
       Linux-x86_64:

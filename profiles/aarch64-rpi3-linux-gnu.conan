@@ -4,8 +4,8 @@ build_type=Release
 compiler=gcc
 compiler.cppstd=gnu17
 compiler.libcxx=libstdc++11
-compiler.version=14
+compiler.version=15
 os=Linux
 
 [tool_requires]
-docker-arm-cross-toolchain/1.0.0@tttapa
+docker-arm-cross-toolchain/1.1.0@tttapa
