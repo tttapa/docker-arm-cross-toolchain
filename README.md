@@ -4,7 +4,7 @@ Repository with ARM cross-compilation toolchains (mainly for Raspberry Pi),
 available as [stand-alone tarballs](https://github.com/tttapa/docker-arm-cross-toolchain/releases)
 or [Docker containers](https://github.com/tttapa/docker-arm-cross-toolchain/pkgs/container/docker-arm-cross-toolchain).
 
-- **GCC**: 14.2, 13.3, 12.4
+- **GCC**: 15.2, 14.3, 13.4, 12.5
 - **Languages**: C, C++, Fortran
 - **Glibc**: 2.31 and later
 - **Linux**: 5.4 and later
@@ -12,9 +12,9 @@ or [Docker containers](https://github.com/tttapa/docker-arm-cross-toolchain/pkgs
 
 The toolchains are built using [crosstool-NG](https://crosstool-ng.github.io/).  
 The Linux compilers include the address and undefined behavior sanitizers (Asan
-and UBsan) and gdbserver (15.1). They are compatible with glibc 2.31
+and UBsan) and gdbserver (16.3). They are compatible with glibc 2.31
 and Linux 5.4 or later, and have been patched for [Debian Multiarch](https://wiki.debian.org/Multiarch).  
-The bare-metal compilers ship with newlib 4.4 and newlib-nano 4.3.
+The bare-metal compilers ship with newlib 4.5 and newlib-nano 4.4.
 
 The toolchains themselves can be used on any x86-64 system running Ubuntu 18.04 Bionic, Debian 10 Buster, Rocky 8 (or later),
 or on a Raspberry Pi running 64-bit Ubuntu 20.04 Bionic, 64-bit Raspberry Pi OS 11 Bullseye (or later).
@@ -95,7 +95,7 @@ You can download and extract the toolchain in one go using `wget` and `tar`,
 for example:
 ```sh
 mkdir -p ~/opt
-wget https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-gcc14.tar.xz -O- | tar xJ -C ~/opt
+wget https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-gcc15.tar.xz -O- | tar xJ -C ~/opt
 ```
 
 If you want to use the toolchain directly, you can add the
