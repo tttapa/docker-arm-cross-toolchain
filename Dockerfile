@@ -39,7 +39,7 @@ ENV PATH=/home/develop/.local/bin:${PATH}
 RUN git clone -b master --single-branch \
         https://github.com/crosstool-ng/crosstool-ng.git && \
     cd crosstool-ng && \
-    git checkout f390dba6c73845389a3217169402d95a837fcee8 && \
+    git checkout 4c94f29bcaddef0af4b3c36cced47b7ddcd153d7 && \
     git show --summary && \
     ./bootstrap && \
     mkdir build && cd build && \
@@ -51,10 +51,11 @@ RUN git clone -b master --single-branch \
 # Patches
 COPY --chown=develop:develop patches patches
 # https://www.raspberrypi.org/forums/viewtopic.php?f=91&t=280707&p=1700861#p1700861
-RUN wget https://ftp.debian.org/debian/pool/main/b/binutils/binutils_2.45-3.debian.tar.xz -O- | \
+# See https://packages.debian.org/sid/binutils for an up-to-date download URL
+RUN wget https://ftp.debian.org/debian/pool/main/b/binutils/binutils_2.46-3.debian.tar.xz -O- | \
     tar xJ debian/patches/129_multiarch_libpath.patch && \
-    mkdir -p patches/binutils/2.45 && \
-    mv debian/patches/129_multiarch_libpath.patch patches/binutils/2.45 && \
+    mkdir -p patches/binutils/2.46 && \
+    mv debian/patches/129_multiarch_libpath.patch patches/binutils/2.46 && \
     rm -rf debian
 
 # Toolchain --------------------------------------------------------------------
