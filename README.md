@@ -14,7 +14,7 @@ The toolchains are built using [crosstool-NG](https://crosstool-ng.github.io/).
 The Linux compilers include the address and undefined behavior sanitizers (Asan
 and UBsan) and gdbserver (16.3). They are compatible with glibc 2.31
 and Linux 5.4 or later, and have been patched for [Debian Multiarch](https://wiki.debian.org/Multiarch).  
-The bare-metal compilers ship with newlib 4.5 and newlib-nano 4.4.
+The bare-metal compilers ship with newlib 4.6 and newlib-nano 4.5.
 
 The toolchains themselves can be used on any x86-64 system running Ubuntu 18.04 Bionic, Debian 10 Buster, Rocky 8 (or later),
 or on a Raspberry Pi running 64-bit Ubuntu 20.04 Bionic, 64-bit Raspberry Pi OS 11 Bullseye (or later).
