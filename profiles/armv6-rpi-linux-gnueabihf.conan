@@ -8,4 +8,4 @@ compiler.version=16
 os=Linux
 
 [tool_requires]
-docker-arm-cross-toolchain/1.2.0@tttapa
+docker-arm-cross-toolchain/1.2.1@tttapa
