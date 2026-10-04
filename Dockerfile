@@ -5,8 +5,8 @@ FROM --platform=$BUILDPLATFORM ubuntu:bionic AS ct-ng
 # Install dependencies to build crosstool-ng and the toolchain
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update -y && \
-    apt-get install -y --no-install-recommends \
-        autoconf automake libtool-bin make texinfo help2man \
+    apt-get -o Acquire::Retries=5 install -y --no-install-recommends \
+        autoconf automake pkg-config libtool-bin make texinfo help2man \
         sudo file gawk patch \
         python3 \
         g++ bison flex gperf \
@@ -39,7 +39,7 @@ ENV PATH=/home/develop/.local/bin:${PATH}
 RUN git clone -b master --single-branch \
         https://github.com/crosstool-ng/crosstool-ng.git && \
     cd crosstool-ng && \
-    git checkout 4c94f29bcaddef0af4b3c36cced47b7ddcd153d7 && \
+    git checkout 2e5d0b813867c4bca820592ff01775aba1367e0f && \
     git show --summary && \
     ./bootstrap && \
     mkdir build && cd build && \
@@ -52,10 +52,10 @@ RUN git clone -b master --single-branch \
 COPY --chown=develop:develop patches patches
 # https://www.raspberrypi.org/forums/viewtopic.php?f=91&t=280707&p=1700861#p1700861
 # See https://packages.debian.org/sid/binutils for an up-to-date download URL
-RUN wget https://ftp.debian.org/debian/pool/main/b/binutils/binutils_2.46-3.debian.tar.xz -O- | \
+RUN wget https://ftp.debian.org/debian/pool/main/b/binutils/binutils_2.47-2.debian.tar.xz -O- | \
     tar xJ debian/patches/129_multiarch_libpath.patch && \
-    mkdir -p patches/binutils/2.46.0 && \
-    mv debian/patches/129_multiarch_libpath.patch patches/binutils/2.46.0 && \
+    mkdir -p patches/binutils/2.47 && \
+    mv debian/patches/129_multiarch_libpath.patch patches/binutils/2.47 && \
     rm -rf debian
 
 # Toolchain --------------------------------------------------------------------
@@ -71,6 +71,7 @@ COPY --chown=develop:develop ${HOST_TRIPLE}.defconfig .
 COPY --chown=develop:develop ${HOST_TRIPLE}.env .
 RUN [ -n "${GCC_VERSION}" ] && { echo "CT_GCC_V_${GCC_VERSION}=y" >> ${HOST_TRIPLE}.defconfig; }
 RUN [ -n "${PKG_VERSION}" ] && { echo "CT_TOOLCHAIN_PKGVERSION=\"tttapa/docker-arm-cross-toolchain:${HOST_TRIPLE}@${PKG_VERSION}\"" >> ${HOST_TRIPLE}.defconfig; }
+RUN echo "CT_CONNECT_TIMEOUT=30" >> ${HOST_TRIPLE}.defconfig
 RUN cp ${HOST_TRIPLE}.defconfig defconfig && ct-ng defconfig
 RUN . ./${HOST_TRIPLE}.env && \
     ct-ng build || { cat build.log && false; } && rm -rf .build
@@ -98,6 +99,7 @@ COPY --chown=develop:develop ${TARGET_TRIPLE}.defconfig .
 COPY --chown=develop:develop ${TARGET_TRIPLE}.env .
 RUN [ -n "${GCC_VERSION}" ] && { echo "CT_GCC_V_${GCC_VERSION}=y" >> ${TARGET_TRIPLE}.defconfig; }
 RUN [ -n "${PKG_VERSION}" ] && { echo "CT_TOOLCHAIN_PKGVERSION=\"tttapa/docker-arm-cross-toolchain:${HOST_TRIPLE}@${PKG_VERSION}\"" >> ${TARGET_TRIPLE}.defconfig; }
+RUN echo "CT_CONNECT_TIMEOUT=30" >> ${TARGET_TRIPLE}.defconfig
 RUN echo "CT_CANADIAN=y" >> ${TARGET_TRIPLE}.defconfig && \
     echo "CT_HOST=\"${HOST_TRIPLE}\"" >> ${TARGET_TRIPLE}.defconfig
 RUN cat ${TARGET_TRIPLE}.defconfig && \
@@ -116,7 +118,7 @@ FROM ubuntu:noble AS gcc-dev-base
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update -y && \
-    apt-get install --no-install-recommends -y \
+    apt-get -o Acquire::Retries=5 install --no-install-recommends -y \
         ninja-build cmake make bison flex \
         tar xz-utils gzip zip unzip bzip2 zstd \
         ca-certificates wget git sudo file && \
