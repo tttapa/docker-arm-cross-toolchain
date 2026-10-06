@@ -4,17 +4,17 @@ Repository with ARM cross-compilation toolchains (mainly for Raspberry Pi),
 available as [stand-alone tarballs](https://github.com/tttapa/docker-arm-cross-toolchain/releases)
 or [Docker containers](https://github.com/tttapa/docker-arm-cross-toolchain/pkgs/container/docker-arm-cross-toolchain).
 
-- **GCC**: 16.1, 15.2, 14.3, 13.4, 12.5
+- **GCC**: 16.2, 15.3, 14.4, 13.4, 12.5
 - **Languages**: C, C++, Fortran
 - **Glibc**: 2.31 and later
-- **Linux**: 3.10 and later (compiled using 6.12)
+- **Linux**: 3.10 and later (compiled using 6.12) <!-- i.e. the version used by Debian Trixie -->
 - **Distributions**: Ubuntu 20.04 Focal, Raspberry Pi OS 11 Bullseye, Rocky 9 and later
 
 The toolchains are built using [crosstool-NG](https://crosstool-ng.github.io/).  
 The Linux compilers include the address and undefined behavior sanitizers (Asan
-and UBsan) and gdbserver (16.3). They are compatible with glibc 2.31
+and UBsan) and gdbserver (17.2). They are compatible with glibc 2.31
 and Linux 3.10 or later, and have been patched for [Debian Multiarch](https://wiki.debian.org/Multiarch).  
-The bare-metal compilers ship with newlib 4.6 and newlib-nano 4.5.
+The bare-metal compilers ship with newlib 4.6 and newlib-nano 4.6.
 
 The toolchains themselves can be used on any x86-64 system running Ubuntu 18.04 Bionic, Debian 10 Buster, Rocky 8 (or later),
 or on a Raspberry Pi running 64-bit Ubuntu 20.04 Bionic, 64-bit Raspberry Pi OS 11 Bullseye (or later).
@@ -30,7 +30,7 @@ Direct links are available in the table below.
 The  ⬇️&nbsp;x86-64 and ⬇️&nbsp;arm64 labels refer to the architectures that the toolchains themselves run on (i.e. the architecture of the machine you'll use to compile your project),
 while the left column indicates the platform that they compile for (i.e. the architecture and OS of the Raspberry Pi that you will install your project onto).
 
-| Target triplet | GCC 16.1 | GCC 15.2 | GCC 14.3 | GCC 13.4 | GCC 12.5 | Recommended hardware | Supported distributions |
+| Target triplet | GCC 16.2 | GCC 15.3 | GCC 14.4 | GCC 13.4 | GCC 12.5 | Recommended hardware | Supported distributions |
 |---------------:|:--------:|:--------:|:--------:|:--------:|:--------:|:-------------------|:------------------------|
 | `aarch64-rpi3-linux-gnu`     | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-gcc16.tar.xz)<br><br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-aarch64-rpi3-linux-gnu-gcc16.tar.xz) | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-gcc15.tar.xz)<br><br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-aarch64-rpi3-linux-gnu-gcc15.tar.xz) | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-gcc14.tar.xz)<br><br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-aarch64-rpi3-linux-gnu-gcc14.tar.xz) | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-gcc13.tar.xz)<br><br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-aarch64-rpi3-linux-gnu-gcc13.tar.xz) | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-gcc12.tar.xz)<br><br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-aarch64-rpi3-linux-gnu-gcc12.tar.xz) | 64-bit ARMv8:<br>RPi 2B rev. 1.2, RPi 3B/3B+, CM 3,<br>RPi 4B/400, CM 4, RPi Zero 2 W, RPi 5 | Ubuntu 20.04 Focal,<br>Debian 11 Bullseye,<br>Rocky 9 and later |
 | `armv8-rpi3-linux-gnueabihf` | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv8-rpi3-linux-gnueabihf-gcc16.tar.xz)<br><br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-armv8-rpi3-linux-gnueabihf-gcc16.tar.xz) | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv8-rpi3-linux-gnueabihf-gcc15.tar.xz)<br><br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-armv8-rpi3-linux-gnueabihf-gcc15.tar.xz) | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv8-rpi3-linux-gnueabihf-gcc14.tar.xz)<br><br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-armv8-rpi3-linux-gnueabihf-gcc14.tar.xz) | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv8-rpi3-linux-gnueabihf-gcc13.tar.xz)<br><br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-armv8-rpi3-linux-gnueabihf-gcc13.tar.xz) | [⬇️&nbsp;x86-64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-armv8-rpi3-linux-gnueabihf-gcc12.tar.xz)<br><br>[⬇️&nbsp;arm64](https://github.com/tttapa/docker-arm-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi3-linux-gnu-armv8-rpi3-linux-gnueabihf-gcc12.tar.xz) | 32-bit ARMv8:<br>RPi 2B rev. 1.2, RPi 3B/3B+, CM 3,<br>RPi 4B/400, CM 4, RPi Zero 2 W, RPi 5 | Ubuntu 20.04 Focal,<br>Debian 11 Bullseye<br>and later |
